@@ -19,7 +19,23 @@ public class TrackKey implements Comparable<TrackKey> {
         this.keyType = keyType;
     }
 
+    public int getRow() {
+        return row;
+    }
+
+    public float getValue() {
+        return value;
+    }
+
+    public KeyType getKeyType() {
+        return keyType;
+    }
+
     public int compareTo(TrackKey other) {
         return row > other.row ? 1 : row < other.row ? -1 : 0;
+    }
+
+    public String toString() {
+        return String.format("TrackKey(row=%d value=%f type=%s)", row, value, keyType);
     }
 }
