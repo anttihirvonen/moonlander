@@ -110,15 +110,22 @@ ${line}
     </target>
 
     <target name="tests.run" depends="tests.compile">
-        <java classname="org.junit.runner.JUnitCore">
-            <arg value="rocketpower.tests.TrackKeyTest" />
+        <junit>
+            <!--<arg value="rocketpower.tests.TestSuite" />-->
             <classpath>
                 <pathelement location="lib/junit.jar"/>
                 <pathelement location="lib/hamcrest.jar"/>
                 <pathelement location="bin"/>
                 <!--<pathelement path="${java.class.path}"/>-->
             </classpath>
-        </java>
+            <formatter type="plain" usefile="no"/>
+            <batchtest fork="yes">
+                <fileset dir="tests">
+                    <include name="**/*Test.java" />
+                    <include name="**/Test*.java" />
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
 	
 	
