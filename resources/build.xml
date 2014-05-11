@@ -97,7 +97,29 @@ ${line}
 	<target name="library.init" depends="init"> 
 		<echo message="init library ..." />	
 	</target>
-	
+
+    <!-- build tests, requires that library is already build to bin/ -->
+    <target name="tests.compile" depends="library.run">
+        <javac srcdir="tests" destdir="${project.bin}" source="${java.target.version}" target="${java.target.version}" includeantruntime="false">
+			<classpath>
+				<path refid="classpath"/>
+                <pathelement location="bin"/>
+			</classpath>
+			<compilerarg value="-Xlint"/>
+		</javac>
+    </target>
+
+    <target name="tests.run" depends="tests.compile">
+        <java classname="org.junit.runner.JUnitCore">
+            <arg value="rocketpower.tests.TrackKeyTest" />
+            <classpath>
+                <pathelement location="lib/junit.jar"/>
+                <pathelement location="lib/hamcrest.jar"/>
+                <pathelement location="bin"/>
+                <!--<pathelement path="${java.class.path}"/>-->
+            </classpath>
+        </java>
+    </target>
 	
 	
 	<target name="library.run" depends="library.init"> 
