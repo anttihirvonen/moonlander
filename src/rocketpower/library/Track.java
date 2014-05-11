@@ -30,7 +30,12 @@ public class Track {
     public TrackKey getKey(int row) {
         // TODO: better way to do this search
         int index = Collections.binarySearch(this.keys, new TrackKey(row, 0.f, TrackKey.KeyType.STEP));
-        return this.keys.get(index);
+        // Exact hit or "insertion point"; get key below that
+        if (index >= 0) {
+            return this.keys.get(index);
+        } else {
+            return this.keys.get(-index-2);
+        }
     }
 
     public void insertKey(TrackKey key) {

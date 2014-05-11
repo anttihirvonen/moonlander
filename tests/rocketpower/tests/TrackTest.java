@@ -37,6 +37,8 @@ public class TrackTest {
 
     @Test
     public void testGetKey() {
+        // Test exact and non-exact matches
         assertEquals(track.getKey(5), key);
+        assertEquals(track.getKey(9), key);
     }
 }
