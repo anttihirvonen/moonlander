@@ -1,5 +1,6 @@
 package rocketpower.library;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,6 +16,10 @@ public class Track {
     public Track(String name) {
         this.name = name;
         this.keys = new ArrayList<TrackKey>();
+    }
+
+    public List<TrackKey> getKeys() {
+        return Collections.unmodifiableList(keys);
     }
 
     /*
