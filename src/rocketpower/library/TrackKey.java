@@ -23,12 +23,24 @@ public class TrackKey implements Comparable<TrackKey> {
         return row;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
     public float getValue() {
         return value;
     }
 
+    public void setValue(float value) {
+        this.value = value;
+    }
+
     public KeyType getKeyType() {
         return keyType;
+    }
+
+    public void setKeyType(KeyType keyType) {
+        this.keyType = keyType;
     }
 
     public int compareTo(TrackKey other) {
