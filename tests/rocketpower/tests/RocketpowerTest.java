@@ -21,17 +21,4 @@ public class RocketpowerTest {
     public void setUp() throws Exception {
         rocket = new Rocketpower();
     }
-
-    @Test
-    public void testGetTrack() {
-        Track track = rocket.getTrack("test");
-        assertEquals(rocket.getTracks().size(), 1);
-        assertEquals(rocket.getTrack("test"), track);
-    }
-
-    @Test
-    public void testDeleteTrack() {
-        rocket.getTrack("test"); rocket.deleteTrack("test");
-        assertEquals(rocket.getTracks().size(), 0);
-    }
 }

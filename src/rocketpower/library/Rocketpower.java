@@ -47,7 +47,7 @@ public class Rocketpower {
     public final static String VERSION = "##library.prettyVersion##";
 
     // Main collection of all tracks
-    private HashMap<String, Track> tracks;
+    private TrackContainer tracks;
 
     /**
      * a Constructor, usually called in the setup() method in your sketch to
@@ -56,32 +56,7 @@ public class Rocketpower {
      * @param theParent
      */
     public Rocketpower() {
-        tracks = new HashMap<String, Track>();
-    }
-
-    /*
-     * Get track with given name or create
-     * new track if it doesn't exist
-     */
-    public Track getTrack(String name) {
-        Track track = tracks.get(name);
-
-        // Not in map, create new
-        if (track == null) {
-            track = new Track(name);
-            tracks.put(name, track);
-        }
-
-        return track;
-    }
-
-    public void deleteTrack(String name) {
-        if (tracks.get(name) != null)
-            tracks.remove(name);
-    }
-
-    public List<Track> getTracks() {
-        return Collections.unmodifiableList(new ArrayList<Track>(tracks.values()));
+        tracks = new TrackContainer();
     }
 
     /**
