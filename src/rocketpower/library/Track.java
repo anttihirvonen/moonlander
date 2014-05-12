@@ -23,19 +23,52 @@ public class Track {
     }
 
     /*
-     * Find key for the given row.
+     * Returns index for a key that should be used as
+     * first interpolation key when calculating value
+     * at the given row.
      *
-     * @returns Key if found, otherwise null.
+     * Effectively the returned index is either index
+     * of TrackKey that is set for the row, or if no exact
+     * match is found, it's index of TrackKey that
+     * is right before given row (key.row < row) in the
+     * keys-array. 
+     *
+     * @returns -1 if key not found, otherwise usable key index
      */
-    public TrackKey getKey(int row) {
+    private int getKeyIndex(int row) {
         // TODO: better way to do this search
         int index = Collections.binarySearch(this.keys, new TrackKey(row, 0.f, TrackKey.KeyType.STEP));
-        // Exact hit or "insertion point"; get key below that
-        if (index >= 0) {
+
+        // Positive index is usable as it is to index this.keys.
+        // -1 means that index 0 should be used as insertion point ->
+        // means that no usable key is found that passes rule
+        // key.row < row. It's therefore an error value.
+        // If index < -1, a valid key index can be calculated
+        // and returned.
+        if (index >= 0 || index == -1)
+            return index;
+        else
+            // Return closest match
+            return -index-2;
+    }
+
+    /*
+     * Find key for the given row.
+     *
+     * If TrackKey object isn't found for the row,
+     * the key before the given row is returned.
+     *
+     * @returns TrackKey if found, otherwise null.
+     */
+    public TrackKey getKey(int row) {
+        int index = getKeyIndex(row);
+
+        // Exact hit 
+        if (index >= 0)
             return this.keys.get(index);
-        } else {
-            return this.keys.get(-index-2);
-        }
+        // No usable key
+        else 
+            return null;
     }
 
     public void insertKey(TrackKey key) {

@@ -40,5 +40,6 @@ public class TrackTest {
         // Test exact and non-exact matches
         assertEquals(track.getKey(5), key);
         assertEquals(track.getKey(9), key);
+        assertEquals(track.getKey(0), null);
     }
 }
