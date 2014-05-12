@@ -84,6 +84,33 @@ public class Track {
             System.out.println(key);
     }
 
+    /*
+     * Returns value of the track for the given
+     * (fractional) row.
+     *
+     * @param   row  
+     * @return  interpolated value for the row
+     */
+    public double getValue(double row) {
+        // No keys -> return 0
+        if (keys.size() == 0)
+            return 0.0;
+
+        int irow = (int) row;
+        int idx = getKeyIndex(irow);
+
+        // No key found below the given row
+        // -> return 0 (asked row < keys[0].row)
+        if (idx == -1)
+            return 0.0;
+        // Last key -> return value without interpolation
+        else if (idx == keys.size() - 1)
+            return keys.get(idx).getValue();
+
+        // Somewhere in between two keys: return interpolated value
+        return TrackKey.interpolate(keys.get(idx), keys.get(idx+1), row);
+    }
+
     public String toString() {
         return String.format("Track(keys=%d)", keys.size());
     }
