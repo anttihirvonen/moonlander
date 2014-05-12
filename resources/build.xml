@@ -1,21 +1,10 @@
-<project name="ProcessingLibs" default="clean" basedir="../">
-
-
-<!--	
-        Properties for your project should be set and modified in the  
-        build.properties file (located in the same folder as this build.xml file).
-
-        THIS FILE SHOULD NOT BE EDITED, unless you know what you are doing.
-        If you have recommendations for improvements, please let Elie know 
-        at prisonerjohn@gmail.com
--->
+<project name="Rocketpower" default="clean" basedir="../">
+    <!-- load properties from separate file -->
     <property file="./resources/build.properties" />
 
     <description>
         ${ant.description}
     </description>
-
-
 
 
     <property name="line" value="------------------------------------------------------------------------------------------------" />
@@ -59,20 +48,51 @@
         </classpath>
     </taskdef>
 
-
+    <!-- build classpath -->
     <path id="classpath">
         <fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
         <fileset dir="${classpath.libraries.location}" includes="**/*.jar" />
         <fileset dir="${project.lib}" includes="**/*.jar" />
     </path>		
 
-
-
-    <!-- Create the time stamp -->
+    <!-- create the build timestamp -->
     <tstamp> 
         <format property="date" pattern="MM/dd/yyyy" offset="0" unit="hour"/>
     </tstamp>
 
+
+    <!-- build tests, requires that library is already build to bin/ -->
+    <target name="tests.compile" depends="library.run">
+        <javac srcdir="tests" destdir="${project.bin}" source="${java.target.version}" target="${java.target.version}" includeantruntime="false">
+            <classpath>
+                <path refid="classpath"/>
+                <pathelement location="bin"/>
+            </classpath>
+            <compilerarg value="-Xlint"/>
+        </javac>
+    </target>
+
+
+    <!-- run tests -->
+    <target name="tests.run" depends="tests.compile">
+        <junit>
+            <classpath>
+                <pathelement location="lib/junit.jar"/>
+                <pathelement location="lib/hamcrest.jar"/>
+                <pathelement location="bin"/>
+            </classpath>
+            <formatter type="plain" usefile="no"/>
+            <batchtest fork="yes">
+                <fileset dir="tests">
+                    <include name="**/*Test.java" />
+                    <include name="**/Test*.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+
+    <!-- init build process -->
     <target name="init"> 
         <echo>${line}
 Building the Processing library ${project.name} ${library.version}
@@ -90,42 +110,12 @@ ${line}
     </target>
 
 
-
     <target name="library.init" depends="init"> 
         <echo message="init library ..." />	
     </target>
 
-    <!-- build tests, requires that library is already build to bin/ -->
-    <target name="tests.compile" depends="library.run">
-        <javac srcdir="tests" destdir="${project.bin}" source="${java.target.version}" target="${java.target.version}" includeantruntime="false">
-            <classpath>
-                <path refid="classpath"/>
-                <pathelement location="bin"/>
-            </classpath>
-            <compilerarg value="-Xlint"/>
-        </javac>
-    </target>
 
-    <target name="tests.run" depends="tests.compile">
-        <junit>
-            <!--<arg value="rocketpower.tests.TestSuite" />-->
-            <classpath>
-                <pathelement location="lib/junit.jar"/>
-                <pathelement location="lib/hamcrest.jar"/>
-                <pathelement location="bin"/>
-                <!--<pathelement path="${java.class.path}"/>-->
-            </classpath>
-            <formatter type="plain" usefile="no"/>
-            <batchtest fork="yes">
-                <fileset dir="tests">
-                    <include name="**/*Test.java" />
-                    <include name="**/Test*.java" />
-                </fileset>
-            </batchtest>
-        </junit>
-    </target>
-
-
+    <!-- build the whole library -->
     <target name="library.run" depends="library.init"> 
         <echo message="building library ..." />
         <antcall target="generate.structure"><param name="folder" value="library"/></antcall>
@@ -392,4 +382,3 @@ ${line}
         </echo>
     </target>
 </project>
-
