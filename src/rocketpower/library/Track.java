@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
+/**
+ * Track keeps hold of multiple TrackKey-objects.
+ *
+ * Each track maps directly to one track in GNU Rocket.
+ */
 public class Track {
     private String name;
     // ArrayList stored in sorted order by
@@ -18,11 +23,14 @@ public class Track {
         this.keys = new ArrayList<TrackKey>();
     }
 
+    /**
+     * Returns unmodifiable list of TrackKey-objects
+     */
     public List<TrackKey> getKeys() {
         return Collections.unmodifiableList(keys);
     }
 
-    /*
+    /**
      * Returns index for a key that should be used as
      * first interpolation key when calculating value
      * at the given row.
@@ -52,8 +60,8 @@ public class Track {
             return -index-2;
     }
 
-    /*
-     * Find key for the given row.
+    /**
+     * Finds key for the given row.
      *
      * If TrackKey object isn't found for the row,
      * the key before the given row is returned.
@@ -71,12 +79,15 @@ public class Track {
             return null;
     }
 
+    /**
+     * Inserts new TrackKey.
+     */
     public void insertKey(TrackKey key) {
         this.keys.add(key);
         Collections.sort(keys);
     }
 
-    /*
+    /**
      * For testing
      */
     public void printKeys() {
@@ -84,7 +95,7 @@ public class Track {
             System.out.println(key);
     }
 
-    /*
+    /**
      * Returns value of the track for the given
      * (fractional) row.
      *

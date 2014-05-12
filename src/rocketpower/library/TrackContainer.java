@@ -10,13 +10,19 @@ import java.util.ArrayList;
 public class TrackContainer {
     private HashMap<String, Track> tracks;
 
+    /**
+     * Initializes new empty TrackContainer.
+     */
     public TrackContainer() {
         tracks = new HashMap<String, Track>();
     }
 
-    /*
-     * Get track with given name or create
-     * new track if it doesn't exist
+    /**
+     * Returns track with the given name or creates
+     * a new track if it doesn't exist.
+     *
+     * @param name name of Track to get or create
+     * @return Track object
      */
     public Track getTrack(String name) {
         Track track = tracks.get(name);
@@ -30,13 +36,20 @@ public class TrackContainer {
         return track;
     }
 
+    /**
+     * Deletes a track.
+     *
+     * If track is not found, does nothing.
+     *
+     * @param name track to delete
+     */
     public void deleteTrack(String name) {
         if (tracks.get(name) != null)
             tracks.remove(name);
     }
 
-    /*
-     * Return unmodifiable list of Track-objects.
+    /**
+     * Returns unmodifiable list of Track-objects.
      */
     public List<Track> getTracks() {
         return Collections.unmodifiableList(new ArrayList<Track>(tracks.values()));
