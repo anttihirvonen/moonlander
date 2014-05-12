@@ -21,4 +21,10 @@ public class RocketpowerTest {
     public void setUp() throws Exception {
         rocket = new Rocketpower();
     }
+
+    @Test
+    public void blackBoxTest() {
+        // Test library as black box
+
+    }
 }

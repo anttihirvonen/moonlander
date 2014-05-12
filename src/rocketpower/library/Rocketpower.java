@@ -50,17 +50,40 @@ public class Rocketpower {
     private TrackContainer tracks;
 
     /**
-     * a Constructor, usually called in the setup() method in your sketch to
-     * initialize and start the library.
-     * 
-     * @param theParent
+     * Initializes library and tries to load syncdata.
+     *
+     * First, a connection to GNU Rocket is attempted using given host 
+     * and port; if connection fails, tries to load sync data
+     * from the given filepath. If both fail, no initial data is loaded.
+     *
+     * @param host 
+     * @param port
+     * @param filePath
+     * @param debug if true, output debug data to stdout
      */
-    public Rocketpower() {
+    public Rocketpower(String host, int port, String filePath, boolean debug) {
         tracks = new TrackContainer();
     }
 
     /**
-     * return the version of the library.
+     * Initializes library with sane default values.
+     */
+    public Rocketpower(boolean debug) {
+        this("localhost", 1338, "syncdata.xml", debug);
+    }
+
+    /**
+     * Initializes library with sane default values without debug mode.
+     *
+     * Uses localhost:1338 for GNU Rocket connection and syncdata.xml
+     * as file if connection cannot be established.
+     */
+    public Rocketpower() {
+        this(false);
+    }
+
+    /**
+     * Returns the version of the library.
      * 
      * @return String
      */
