@@ -70,7 +70,15 @@ public class Rocketpower {
     public Rocketpower(String host, int port, String filePath, Level logLevel) {
         tracks = new TrackContainer();
 
+        // Create own handler
+        ConsoleHandler handler = new ConsoleHandler();
+        handler.setLevel(Level.FINEST);
+
+        logger.setUseParentHandlers(false);
+        logger.addHandler(handler);
+        // This controls the actual logging level
         logger.setLevel(logLevel);
+
         logger.info("Initializing Rocketpower");
 
         // If connection to rocket fails, try to load syncdata from file
