@@ -16,7 +16,7 @@ abstract class RocketDevice {
     /**
      * Writes a message to stdout if debug = true.
      */
-    private void debugLog(String message) {
+    protected void debugLog(String message) {
         if (this.debug)
             System.out.println(message);
     }
