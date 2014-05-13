@@ -49,6 +49,9 @@ public class Rocketpower {
     // Main collection of all tracks
     private TrackContainer tracks;
 
+    // Connection device
+    private RocketDevice device;
+
     /**
      * Initializes library and tries to load syncdata.
      *
@@ -58,11 +61,19 @@ public class Rocketpower {
      *
      * @param host 
      * @param port
-     * @param filePath
+     * @param filePath path to Rocket's XML-file
      * @param debug if true, output debug data to stdout
      */
     public Rocketpower(String host, int port, String filePath, boolean debug) {
         tracks = new TrackContainer();
+
+        // If connection to rocket fails, try to load syncdata from file
+        try {
+            device = new SocketDevice(tracks, debug, host, port);
+        } catch (Exception e) {
+            device = new PlayerDevice(tracks, debug, filePath);
+        }
+
     }
 
     /**
