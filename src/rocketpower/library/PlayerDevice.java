@@ -1,5 +1,7 @@
 package rocketpower.library;
 
+import java.util.logging.Logger;
+
 
 /*
  * Implements "connection" with exported sync data files.
@@ -8,8 +10,8 @@ class PlayerDevice extends RocketDevice {
     /*
      * Read syncdata from given path
      */
-    public PlayerDevice(TrackContainer tracks, boolean debug, String path) {
-        super(tracks, debug);
+    public PlayerDevice(Logger logger, TrackContainer tracks, String path) {
+        super(logger, tracks);
 
     }
 

@@ -1,24 +1,18 @@
 package rocketpower.library;
 
+import java.util.logging.Logger;
+
 
 /*
  * Connection device baseclass
  */
 abstract class RocketDevice {
     private TrackContainer tracks;
-    private boolean debug;
+    protected Logger logger;
 
-    RocketDevice(TrackContainer tracks, boolean debug) {
-        this.debug = debug;
+    RocketDevice(Logger logger, TrackContainer tracks) {
+        this.logger = logger;
         this.tracks = tracks;
-    }
-
-    /**
-     * Writes a message to stdout if debug = true.
-     */
-    protected void debugLog(String message) {
-        if (this.debug)
-            System.out.println(message);
     }
 
     abstract public void update();

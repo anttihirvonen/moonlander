@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.logging.*;
 // import processing.core.*;
 
 
@@ -52,6 +53,8 @@ public class Rocketpower {
     // Connection device
     private RocketDevice device;
 
+    private static Logger logger = Logger.getLogger("rocketpower.library");
+
     /**
      * Initializes library and tries to load syncdata.
      *
@@ -64,14 +67,17 @@ public class Rocketpower {
      * @param filePath path to Rocket's XML-file
      * @param debug if true, output debug data to stdout
      */
-    public Rocketpower(String host, int port, String filePath, boolean debug) {
+    public Rocketpower(String host, int port, String filePath, Level logLevel) {
         tracks = new TrackContainer();
+
+        logger.setLevel(logLevel);
+        logger.info("Initializing Rocketpower");
 
         // If connection to rocket fails, try to load syncdata from file
         try {
-            device = new SocketDevice(tracks, debug, host, port);
+            device = new SocketDevice(logger, tracks, host, port);
         } catch (Exception e) {
-            device = new PlayerDevice(tracks, debug, filePath);
+            device = new PlayerDevice(logger, tracks, filePath);
         }
 
     }
@@ -79,8 +85,8 @@ public class Rocketpower {
     /**
      * Initializes library with sane default values.
      */
-    public Rocketpower(boolean debug) {
-        this("localhost", 1338, "syncdata.xml", debug);
+    public Rocketpower(Level logLevel) {
+        this("localhost", 1338, "syncdata.xml", logLevel);
     }
 
     /**
@@ -90,7 +96,7 @@ public class Rocketpower {
      * as file if connection cannot be established.
      */
     public Rocketpower() {
-        this(false);
+        this(Level.OFF);
     }
 
     /**

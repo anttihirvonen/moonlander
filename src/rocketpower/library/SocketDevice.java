@@ -4,6 +4,7 @@ package rocketpower.library;
 import java.net.Socket;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
+import java.util.logging.Logger;
 
 /*
  * Implements connection with GNU Rocket.
@@ -19,14 +20,14 @@ class SocketDevice extends RocketDevice {
     /*
      * Connects to GNU Rocket.
      */
-    public SocketDevice(TrackContainer tracks, boolean debug, String host, int port) throws Exception {
-        super(tracks, debug);
+    public SocketDevice(Logger logger, TrackContainer tracks, String host, int port) throws Exception {
+        super(logger, tracks);
 
         // Connect to rocket and initialize streams
         try {
             socket = new Socket(host, port);
         } catch (Exception e) {
-            debugLog(String.format("Connection to %s:%d failed", host, port));
+            logger.warning(String.format("Connection to %s:%d failed", host, port));
             throw e;
         }
         out = new DataOutputStream(socket.getOutputStream());
@@ -40,11 +41,11 @@ class SocketDevice extends RocketDevice {
         in.readFully(greet, 0, SERVER_GREET.length());
 
         if (!SERVER_GREET.equals(new String(greet))) {
-            debugLog("Server didn't send correct greetings.");
+            logger.warning("Server didn't send correct greetings.");
             throw new Exception("Greetings mismatch");
         }
 
-        debugLog(String.format("Connected to server running at %s:%d", host, port));
+        logger.info(String.format("Connected to server running at %s:%d", host, port));
     }
 
     /*
