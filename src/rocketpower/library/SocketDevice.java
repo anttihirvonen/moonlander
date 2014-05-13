@@ -8,9 +8,9 @@ class SocketDevice extends RocketDevice {
     /*
      * Connects to GNU Rocket.
      */
-    public SocketDevice(Rocketpower rocket, String host, int port, boolean debug) throws Exception {
-        super(debug);
-        throw new Exception();
+    public SocketDevice(TrackContainer tracks, boolean debug, String host, int port) throws Exception {
+        super(tracks, debug);
+        //throw new Exception();
     }
 
     /*

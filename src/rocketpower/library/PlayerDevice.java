@@ -8,8 +8,8 @@ class PlayerDevice extends RocketDevice {
     /*
      * Read syncdata from given path
      */
-    public PlayerDevice(Rocketpower rocket, String path, boolean debug) {
-        super(debug);
+    public PlayerDevice(TrackContainer tracks, boolean debug, String path) {
+        super(tracks, debug);
 
     }
 
