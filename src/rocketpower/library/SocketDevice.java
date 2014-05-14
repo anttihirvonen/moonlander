@@ -128,8 +128,14 @@ class SocketDevice extends RocketDevice {
             logger.finer(String.format("Read command: %d", h));
             switch (h) {
                 case Commands.SET_KEY:
+                    System.out.println(in.readInt());
+                    System.out.println(in.readInt());
+                    System.out.println(in.readFloat());
+                    System.out.println(in.readByte());
                     break;
                 case Commands.DELETE_KEY:
+                    System.out.println(in.readInt());
+                    System.out.println(in.readInt());
                     break;
                 case Commands.GET_TRACK:
                     break;
