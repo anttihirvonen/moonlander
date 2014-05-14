@@ -17,6 +17,15 @@ class SocketDevice extends RocketDevice {
     private final String CLIENT_GREET = "hello, synctracker!";
     private final String SERVER_GREET = "hello, demo!";
 
+    private static class Commands {
+        static final int SET_KEY        = 0;
+        static final int DELETE_KEY     = 1;
+        static final int GET_TRACK      = 2;
+        static final int SET_ROW        = 3;
+        static final int PAUSE          = 4;
+        static final int SAVE_TRACKS    = 5;
+    }
+
     /*
      * Connects to GNU Rocket.
      */
@@ -72,6 +81,43 @@ class SocketDevice extends RocketDevice {
      * Reads socket for updates
      */
     public void update() {
+        try {
+            readCommand();
+        } catch (Exception e) {
+            logger.severe("Error in readCommand");
+        }
+    }
+
+    /**
+     * Reads pending rocket commands from socket.
+     *
+     * Throws exception if command cannot be read
+     * successfully; this usually means that Rocket
+     * has died and input stream cannot be read anymore.
+     */
+    private void readCommand() throws Exception {
+        byte h;
+        while (in.available() != 0) {
+            h = in.readByte();
+            logger.finer(String.format("Read command: %d", h));
+            switch (h) {
+                case Commands.SET_KEY:
+                    break;
+                case Commands.DELETE_KEY:
+                    break;
+                case Commands.GET_TRACK:
+                    break;
+                case Commands.SET_ROW:
+                    in.readInt();
+                    break;
+                case Commands.PAUSE:
+                    in.readByte();
+                    break;
+                case Commands.SAVE_TRACKS:
+                    break;
+
+            }
+        }
 
     }
 }
