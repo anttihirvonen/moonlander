@@ -1,7 +1,7 @@
 package rocketpower.library;
 
 
-public class TrackKey implements Comparable<TrackKey> {
+class TrackKey implements Comparable<TrackKey> {
     /**
      * Interpolation type.
      */

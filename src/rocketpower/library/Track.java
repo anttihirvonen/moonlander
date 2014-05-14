@@ -26,7 +26,7 @@ public class Track {
     /**
      * Returns unmodifiable list of TrackKey-objects
      */
-    public List<TrackKey> getKeys() {
+    protected List<TrackKey> getKeys() {
         return Collections.unmodifiableList(keys);
     }
 
@@ -68,7 +68,7 @@ public class Track {
      *
      * @returns TrackKey if found, otherwise null.
      */
-    public TrackKey getKey(int row) {
+    protected TrackKey getKey(int row) {
         int index = getKeyIndex(row);
 
         // Exact hit 
@@ -82,7 +82,7 @@ public class Track {
     /**
      * Inserts new TrackKey.
      */
-    public void insertKey(TrackKey key) {
+    protected void insertKey(TrackKey key) {
         this.keys.add(key);
         Collections.sort(keys);
     }

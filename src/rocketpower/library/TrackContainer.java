@@ -12,7 +12,7 @@ interface TrackContainerListener {
     public void trackDeleted(String name);
 }
 
-public class TrackContainer {
+class TrackContainer {
     private HashMap<String, Track> tracks;
     private ArrayList<TrackContainerListener> listeners;
 
