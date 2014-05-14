@@ -39,29 +39,29 @@ public class TrackContainerTest {
 
     @Test
     public void testEventListenerAddAndRemove() {
-        tracks.getOrCreateTrack("new_track");
+        tracks.getOrCreate("new_track");
         assertEquals(listener.lastName, "new_track");
         tracks.removeEventListener(listener);
 
         // listener should not listen to changes anymore
-        tracks.getOrCreateTrack("other_track");
+        tracks.getOrCreate("other_track");
         assertEquals(listener.lastName, "new_track");
 
     }
 
     @Test
     public void testGetOrCreateTrack() {
-        Track track = tracks.getOrCreateTrack("new_track");
-        assertEquals(tracks.getTracks().size(), 1);
-        assertEquals(tracks.getOrCreateTrack("new_track"), track);
+        Track track = tracks.getOrCreate("new_track");
+        assertEquals(tracks.getAll().size(), 1);
+        assertEquals(tracks.getOrCreate("new_track"), track);
         assertEquals(listener.lastName, "new_track");
 
     }
 
     @Test
     public void testDeleteTrack() {
-        tracks.getOrCreateTrack("test"); tracks.deleteTrack("test");
-        assertEquals(tracks.getTracks().size(), 0);
+        tracks.getOrCreate("test"); tracks.delete("test");
+        assertEquals(tracks.getAll().size(), 0);
         assertEquals(listener.lastName, "test");
     }
 }

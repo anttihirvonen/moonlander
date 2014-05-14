@@ -32,7 +32,7 @@ class TrackContainer {
         listeners.remove(listener);
     }
 
-    public Track getTrack(String name) {
+    public Track get(String name) {
         return tracks.get(name);
     }
 
@@ -43,8 +43,8 @@ class TrackContainer {
      * @param name name of Track to get or create
      * @return Track object
      */
-    public Track getOrCreateTrack(String name) {
-        Track track = getTrack(name);
+    public Track getOrCreate(String name) {
+        Track track = get(name);
 
         // Not in map, create new
         if (track == null) {
@@ -64,7 +64,7 @@ class TrackContainer {
      *
      * @param name track to delete
      */
-    public void deleteTrack(String name) {
+    public void delete(String name) {
         if (tracks.get(name) != null) {
             tracks.remove(name);
             for (TrackContainerListener l: listeners)
@@ -75,7 +75,7 @@ class TrackContainer {
     /**
      * Returns unmodifiable list of Track-objects.
      */
-    public List<Track> getTracks() {
+    public List<Track> getAll() {
         return Collections.unmodifiableList(new ArrayList<Track>(tracks.values()));
     }
 }
