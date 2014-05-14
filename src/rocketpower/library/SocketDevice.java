@@ -34,7 +34,21 @@ class SocketDevice extends RocketDevice {
 
         logger.fine(String.format("Trying to connect to Rocket at %s:%d", host, port));
 
-        // Connect to rocket and initialize streams
+        try {
+            initSocket(host, port);
+            greetServer();
+        } catch (Exception e) {
+            close();
+            throw e;
+        }
+
+        logger.info(String.format("Successfully connected to Rocket running at %s:%d.", host, port));
+    }
+
+    /**
+     * Connects to Rocket and initializes data streams.
+     */
+    private void initSocket(String host, int port) throws Exception {
         try {
             socket = new Socket(host, port);
         } catch (Exception e) {
@@ -44,14 +58,14 @@ class SocketDevice extends RocketDevice {
         out = new DataOutputStream(socket.getOutputStream());
         in = new DataInputStream(socket.getInputStream());
 
-        logger.finer("Connection established.");
-        
-        // This raises if something goes terribly wrong
-        greetServer();
-
-        logger.info(String.format("Connected to Rocket running at %s:%d.", host, port));
+        logger.finer("Connection to Rocket established.");
     }
 
+    /**
+     * Greets Rocket. 
+     *
+     * Requires a connected socket, otherwise throws.
+     */
     private void greetServer() throws Exception {
         logger.finer("Sending greetings to Rocket.");
         
