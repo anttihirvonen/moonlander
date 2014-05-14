@@ -109,6 +109,17 @@ public class Rocketpower {
         this(Level.OFF);
     }
 
+    // temporary update method, call in sketc#draw
+    // TODO: extend from PApplet and hard-wire updating
+    public void update() {
+        device.update();
+    }
+
+    // temporary(?) proxy method for getting track
+    public Track getTrack(String name) {
+        return tracks.getTrack(name);
+    }
+
     /**
      * Returns the version of the library.
      * 
