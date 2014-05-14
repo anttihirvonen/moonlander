@@ -38,11 +38,24 @@ public class TrackContainerTest {
     }
 
     @Test
+    public void testEventListenerAddAndRemove() {
+        tracks.getTrack("new_track");
+        assertEquals(listener.lastName, "new_track");
+        tracks.removeEventListener(listener);
+
+        // listener should not listen to changes anymore
+        tracks.getTrack("other_track");
+        assertEquals(listener.lastName, "new_track");
+
+    }
+
+    @Test
     public void testGetTrack() {
         Track track = tracks.getTrack("new_track");
         assertEquals(tracks.getTracks().size(), 1);
         assertEquals(tracks.getTrack("new_track"), track);
         assertEquals(listener.lastName, "new_track");
+
     }
 
     @Test

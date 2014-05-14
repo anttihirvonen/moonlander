@@ -28,6 +28,10 @@ class TrackContainer {
         listeners.add(listener);
     }
 
+    public void removeEventListener(TrackContainerListener listener) {
+        listeners.remove(listener);
+    }
+
     /**
      * Returns track with the given name or creates
      * a new track if it doesn't exist.
