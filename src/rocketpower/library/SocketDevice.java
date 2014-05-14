@@ -102,6 +102,18 @@ class SocketDevice extends RocketDevice {
         }
     }
 
+    public void trackAdded(String name) {
+        logger.finest("Adding track. Sending Commands.GET_TRACK to Rocket.");
+        try {
+            out.writeByte(Commands.GET_TRACK);
+            out.writeInt(name.length());
+            out.writeBytes(name);
+        } catch (Exception e) {
+            logger.severe("Communication with Rocket failed!");
+        }
+        logger.finer("New track fetched from Rocket.");
+    }
+
     /**
      * Reads pending rocket commands from socket.
      *
