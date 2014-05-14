@@ -68,8 +68,20 @@ public class Rocketpower {
      * @param debug if true, output debug data to stdout
      */
     public Rocketpower(String host, int port, String filePath, Level logLevel) {
+        setupLogging(logLevel);
+        logger.info("Initializing Rocketpower");
+
         tracks = new TrackContainer();
 
+        // If connection to rocket fails, try to load syncdata from file
+        try {
+            device = new SocketDevice(logger, tracks, host, port);
+        } catch (Exception e) {
+            device = new PlayerDevice(logger, tracks, filePath);
+        }
+    }
+
+    private void setupLogging(Level logLevel) {
         // Create own handler
         ConsoleHandler handler = new ConsoleHandler();
         handler.setLevel(Level.FINEST);
@@ -78,16 +90,6 @@ public class Rocketpower {
         logger.addHandler(handler);
         // This controls the actual logging level
         logger.setLevel(logLevel);
-
-        logger.info("Initializing Rocketpower");
-
-        // If connection to rocket fails, try to load syncdata from file
-        try {
-            device = new SocketDevice(logger, tracks, host, port);
-        } catch (Exception e) {
-            device = new PlayerDevice(logger, tracks, filePath);
-        }
-
     }
 
     /**
