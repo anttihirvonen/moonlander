@@ -32,6 +32,10 @@ class TrackContainer {
         listeners.remove(listener);
     }
 
+    public Track getTrack(String name) {
+        return tracks.get(name);
+    }
+
     /**
      * Returns track with the given name or creates
      * a new track if it doesn't exist.
@@ -39,8 +43,8 @@ class TrackContainer {
      * @param name name of Track to get or create
      * @return Track object
      */
-    public Track getTrack(String name) {
-        Track track = tracks.get(name);
+    public Track getOrCreateTrack(String name) {
+        Track track = getTrack(name);
 
         // Not in map, create new
         if (track == null) {

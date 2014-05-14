@@ -117,7 +117,7 @@ public class Rocketpower {
 
     // temporary(?) proxy method for getting track
     public Track getTrack(String name) {
-        return tracks.getTrack(name);
+        return tracks.getOrCreateTrack(name);
     }
 
     /**
