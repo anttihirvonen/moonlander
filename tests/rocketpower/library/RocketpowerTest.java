@@ -1,4 +1,4 @@
-package rocketpower.tests;
+package rocketpower.library;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +19,6 @@ public class RocketpowerTest {
 
     @Before
     public void setUp() throws Exception {
-        rocket = new Rocketpower();
     }
 
     @Test

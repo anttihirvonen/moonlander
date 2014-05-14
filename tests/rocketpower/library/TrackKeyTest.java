@@ -1,4 +1,4 @@
-package rocketpower.tests;
+package rocketpower.library;
 
 import static org.junit.Assert.assertEquals;
 
