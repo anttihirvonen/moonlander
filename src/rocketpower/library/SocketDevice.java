@@ -1,10 +1,17 @@
 package rocketpower.library;
 
 
+import java.util.HashMap;
 import java.net.Socket;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.util.logging.Logger;
+
+
+interface RocketCommand {
+    public void handle() throws Exception;
+}
+
 
 /*
  * Implements connection with GNU Rocket.
@@ -17,6 +24,8 @@ class SocketDevice extends RocketDevice {
     private final String CLIENT_GREET = "hello, synctracker!";
     private final String SERVER_GREET = "hello, demo!";
 
+    private HashMap<Integer, RocketCommand> commands;
+
     private static class Commands {
         static final int SET_KEY        = 0;
         static final int DELETE_KEY     = 1;
@@ -26,11 +35,58 @@ class SocketDevice extends RocketDevice {
         static final int SAVE_TRACKS    = 5;
     }
 
+    private class InCommandSetKey implements RocketCommand {
+        public void handle() throws Exception {
+            System.out.println(in.readInt());
+            System.out.println(in.readInt());
+            System.out.println(in.readFloat());
+            System.out.println(in.readByte());
+        }
+    }
+
+    private class InCommandDeleteKey implements RocketCommand {
+        public void handle() throws Exception {
+            System.out.println(in.readInt());
+            System.out.println(in.readInt());
+        }
+    }
+
+    private class InCommandSetRow implements RocketCommand {
+        public void handle() throws Exception {
+            in.readInt();
+        }
+    }
+
+    private class InCommandPause implements RocketCommand {
+        public void handle() throws Exception {
+            in.readByte();
+        }
+    }
+
+    private class InCommandSaveTracks implements RocketCommand {
+        public void handle() throws Exception {
+        }
+    }
+
+    private class OutCommandGetTrack implements RocketCommand {
+        public void handle() throws Exception {
+            // Impl elsewhere for now
+        }
+    }
+
     /*
      * Connects to GNU Rocket.
      */
     public SocketDevice(Logger logger, TrackContainer tracks, String host, int port) throws Exception {
         super(logger, tracks);
+
+        // Init command mappings
+        commands = new HashMap<Integer, RocketCommand>();
+        commands.put(new Integer(Commands.SET_KEY), new InCommandSetKey());
+        commands.put(new Integer(Commands.DELETE_KEY), new InCommandDeleteKey());
+        commands.put(new Integer(Commands.SET_ROW), new InCommandSetRow());
+        commands.put(new Integer(Commands.PAUSE), new InCommandPause());
+        commands.put(new Integer(Commands.SAVE_TRACKS), new InCommandSaveTracks());
 
         logger.fine(String.format("Trying to connect to Rocket at %s:%d", host, port));
 
@@ -122,34 +178,18 @@ class SocketDevice extends RocketDevice {
      * has died and input stream cannot be read anymore.
      */
     private void readCommand() throws Exception {
-        byte h;
+        byte cid;
+
         while (in.available() != 0) {
-            h = in.readByte();
-            logger.finer(String.format("Read command: %d", h));
-            switch (h) {
-                case Commands.SET_KEY:
-                    System.out.println(in.readInt());
-                    System.out.println(in.readInt());
-                    System.out.println(in.readFloat());
-                    System.out.println(in.readByte());
-                    break;
-                case Commands.DELETE_KEY:
-                    System.out.println(in.readInt());
-                    System.out.println(in.readInt());
-                    break;
-                case Commands.GET_TRACK:
-                    break;
-                case Commands.SET_ROW:
-                    in.readInt();
-                    break;
-                case Commands.PAUSE:
-                    in.readByte();
-                    break;
-                case Commands.SAVE_TRACKS:
-                    break;
+            cid = in.readByte();
+            logger.finer(String.format("Read command: %d", cid));
 
-            }
+            RocketCommand command = commands.get(new Integer(cid));
+
+            if (command != null)
+                command.handle();
+            else
+                logger.warning(String.format("Unknown command id=%d", cid));
         }
-
     }
 }
