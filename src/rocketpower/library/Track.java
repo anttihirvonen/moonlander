@@ -99,6 +99,16 @@ public class Track {
     }
 
     /**
+     * Deletes key from given row if it exists.
+     */
+    protected void deleteKey(int row) {
+        int index = getKeyIndex(row);
+        if (index >= 0 && 
+            keys.get(index).getRow() == row)
+            keys.remove(index);
+    }
+
+    /**
      * For testing
      */
     public void printKeys() {

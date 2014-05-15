@@ -46,6 +46,12 @@ public class TrackTest {
     }
 
     @Test
+    public void testDeleteKey() {
+        track.deleteKey(1);
+        assertEquals(3, track.getKeys().size());
+    }
+
+    @Test
     public void testGetKey() {
         // Test exact and non-exact matches
         assertEquals(track.getKey(5), key);
