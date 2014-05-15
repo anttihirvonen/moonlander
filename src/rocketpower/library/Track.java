@@ -89,7 +89,7 @@ public class Track {
         int index = getKeyIndex(row);
 
         // Check if row matches -> replace existing
-        if (index > 0 && 
+        if (index >= 0 && 
             keys.get(index).getRow() == row) {
             keys.set(index, key);
         } else {
