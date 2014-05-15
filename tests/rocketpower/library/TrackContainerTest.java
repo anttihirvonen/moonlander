@@ -50,6 +50,15 @@ public class TrackContainerTest {
     }
 
     @Test
+    public void testGetById() {
+        Track t1 = tracks.getOrCreate("1");
+        tracks.getOrCreate("2");
+        Track t3 = tracks.getOrCreate("3");
+        assertEquals(tracks.getById(0), t1);
+        assertEquals(tracks.getById(2), t3);
+    }
+
+    @Test
     public void testGetOrCreateTrack() {
         Track track = tracks.getOrCreate("new_track");
         assertEquals(tracks.getAll().size(), 1);

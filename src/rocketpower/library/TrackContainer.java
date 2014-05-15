@@ -1,7 +1,7 @@
 package rocketpower.library;
 
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -13,14 +13,16 @@ interface TrackContainerListener {
 }
 
 class TrackContainer {
-    private HashMap<String, Track> tracks;
+    // LinkedHashMap keeps the order of added pairs,
+    // so Track-objects can be also fetched by insertion id.
+    private LinkedHashMap<String, Track> tracks;
     private ArrayList<TrackContainerListener> listeners;
 
     /**
      * Initializes new empty TrackContainer.
      */
     public TrackContainer() {
-        tracks = new HashMap<String, Track>();
+        tracks = new LinkedHashMap<String, Track>();
         listeners = new ArrayList<TrackContainerListener>();
     }
 
@@ -34,6 +36,18 @@ class TrackContainer {
 
     public Track get(String name) {
         return tracks.get(name);
+    }
+
+    /**
+     * Fetch track by it's zero-based insertion id.
+     *
+     * Tracks are in same order as they were added.
+     * This directly maps to Rocket's insertion order and
+     * the method is intended to be used when Rocket sends
+     * SET_KEY, which contains id of the track.
+     */
+    public Track getById(int id) {
+        return (new ArrayList<Track>(tracks.values())).get(id);
     }
 
     /**
