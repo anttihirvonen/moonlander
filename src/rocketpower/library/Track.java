@@ -80,11 +80,22 @@ public class Track {
     }
 
     /**
-     * Inserts new TrackKey.
+     * Inserts new TrackKey or updates an existing one.
+     *
+     * If row matches, the old key is replaced.
      */
-    protected void insertKey(TrackKey key) {
-        this.keys.add(key);
-        Collections.sort(keys);
+    protected void addOrUpdateKey(TrackKey key) {
+        int row = key.getRow();
+        int index = getKeyIndex(row);
+
+        // Check if row matches -> replace existing
+        if (index > 0 && 
+            keys.get(index).getRow() == row) {
+            keys.set(index, key);
+        } else {
+            this.keys.add(key);
+            Collections.sort(keys);
+        }
     }
 
     /**
@@ -123,6 +134,6 @@ public class Track {
     }
 
     public String toString() {
-        return String.format("Track(keys=%d)", keys.size());
+        return String.format("Track(name=%s, keys=%d)", name, keys.size());
     }
 }

@@ -22,10 +22,10 @@ public class TrackTest {
     public void setUp() throws Exception {
         track = new Track("test");
         key = new TrackKey(5, 2.f, TrackKey.KeyType.STEP);
-        track.insertKey(key);
-        track.insertKey(new TrackKey(1, 1.f, TrackKey.KeyType.LINEAR));
-        track.insertKey(new TrackKey(15, 4.f, TrackKey.KeyType.SMOOTH));
-        track.insertKey(new TrackKey(10, 3.f, TrackKey.KeyType.RAMP));
+        track.addOrUpdateKey(key);
+        track.addOrUpdateKey(new TrackKey(1, 1.f, TrackKey.KeyType.LINEAR));
+        track.addOrUpdateKey(new TrackKey(15, 4.f, TrackKey.KeyType.SMOOTH));
+        track.addOrUpdateKey(new TrackKey(10, 3.f, TrackKey.KeyType.RAMP));
     }
 
     @Test
@@ -33,6 +33,16 @@ public class TrackTest {
         List<TrackKey> keys = track.getKeys();
         assertEquals(keys.get(0).getRow(), 1);
         assertEquals(keys.get(3).getRow(), 15);
+    }
+
+    @Test
+    public void testAddOrUpdateKey() {
+        track.addOrUpdateKey(new TrackKey(4, 1.f, TrackKey.KeyType.LINEAR));
+        assertEquals(track.getKeys().size(), 5);
+        TrackKey t = new TrackKey(4, 2.f, TrackKey.KeyType.SMOOTH);
+        track.addOrUpdateKey(t);
+        assertEquals(track.getKeys().size(), 5);
+        assertEquals(t, track.getKey(4));
     }
 
     @Test
