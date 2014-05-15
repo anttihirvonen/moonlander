@@ -61,6 +61,20 @@ public class Track {
     }
 
     /**
+     * Return index of key for given row
+     * if row contains key.
+     */
+    private int getKeyIndexExact(int row) {
+        int index = getKeyIndex(row);
+
+        if (index >= 0 &&
+            keys.get(index).getRow() == row)
+            return index;
+        else
+            return -1;
+    }
+
+    /**
      * Finds key for the given row.
      *
      * If TrackKey object isn't found for the row,
@@ -85,12 +99,9 @@ public class Track {
      * If row matches, the old key is replaced.
      */
     protected void addOrUpdateKey(TrackKey key) {
-        int row = key.getRow();
-        int index = getKeyIndex(row);
+        int index = getKeyIndexExact(key.getRow());
 
-        // Check if row matches -> replace existing
-        if (index >= 0 && 
-            keys.get(index).getRow() == row) {
+        if (index >= 0) {
             keys.set(index, key);
         } else {
             this.keys.add(key);
@@ -102,9 +113,8 @@ public class Track {
      * Deletes key from given row if it exists.
      */
     protected void deleteKey(int row) {
-        int index = getKeyIndex(row);
-        if (index >= 0 && 
-            keys.get(index).getRow() == row)
+        int index = getKeyIndexExact(row);
+        if (index >= 0)
             keys.remove(index);
     }
 
