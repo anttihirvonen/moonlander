@@ -7,7 +7,7 @@ import java.util.logging.Logger;
  * Connection device baseclass
  */
 abstract class RocketDevice implements TrackContainerListener {
-    private TrackContainer tracks;
+    protected TrackContainer tracks;
     protected Logger logger;
 
     RocketDevice(Logger logger, TrackContainer tracks) {
