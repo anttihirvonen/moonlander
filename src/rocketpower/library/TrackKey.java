@@ -4,12 +4,16 @@ package rocketpower.library;
 class TrackKey implements Comparable<TrackKey> {
     /**
      * Interpolation type.
+     *
+     * Note: it's important that enum's
+     * ordinal values map to the same values on
+     * Rocket's side!
      */
     public enum KeyType {
         /**
          * No interpolation, just steps to next value.
          */
-        STEP,
+        STEP, // ordinal = 0 and so on..
         /**
          * Linear 
          */
@@ -32,6 +36,10 @@ class TrackKey implements Comparable<TrackKey> {
         this.row = row;
         this.value = value;
         this.keyType = keyType;
+    }
+
+    public TrackKey(int row, float value, int keyType) {
+        this(row, value, KeyType.values()[keyType]);
     }
 
     public int getRow() {

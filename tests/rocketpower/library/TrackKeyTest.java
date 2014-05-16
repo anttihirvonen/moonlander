@@ -12,6 +12,12 @@ import rocketpower.library.*;
 @RunWith(JUnit4.class)
 public class TrackKeyTest {
     @Test
+    public void testConstructor() {
+        TrackKey t = new TrackKey(1, 0.f, 1);
+        assertEquals(t.getKeyType(), TrackKey.KeyType.LINEAR);
+    }
+
+    @Test
     public void testCompareTo() {
         TrackKey first = new TrackKey(1, 0.f, TrackKey.KeyType.STEP);
         TrackKey second = new TrackKey(2, 0.f, TrackKey.KeyType.STEP);
