@@ -37,10 +37,17 @@ class SocketDevice extends RocketDevice {
 
     private class InCommandSetKey implements RocketCommand {
         public void handle() throws Exception {
-            System.out.println(in.readInt());
-            System.out.println(in.readInt());
-            System.out.println(in.readFloat());
-            System.out.println(in.readByte());
+            int trackId = in.readInt(); 
+            int row = in.readInt();
+            float value = in.readFloat();
+            byte type = in.readByte();
+
+            Track t = tracks.getById(trackId);
+            if (t != null) 
+                t.addOrUpdateKey(new TrackKey(row, value, (int) type));
+
+            t.printKeys();
+
         }
     }
 
@@ -53,12 +60,14 @@ class SocketDevice extends RocketDevice {
 
     private class InCommandSetRow implements RocketCommand {
         public void handle() throws Exception {
+            // TODO: notify controller about row change
             in.readInt();
         }
     }
 
     private class InCommandPause implements RocketCommand {
         public void handle() throws Exception {
+            // TODO: notify controller about pause
             in.readByte();
         }
     }
