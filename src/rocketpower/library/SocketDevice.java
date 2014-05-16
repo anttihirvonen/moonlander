@@ -53,8 +53,12 @@ class SocketDevice extends RocketDevice {
 
     private class InCommandDeleteKey implements RocketCommand {
         public void handle() throws Exception {
-            System.out.println(in.readInt());
-            System.out.println(in.readInt());
+            int trackId = in.readInt();
+            int row = in.readInt();
+
+            Track t = tracks.getById(trackId);
+            if (t != null)
+                t.deleteKey(row);
         }
     }
 
