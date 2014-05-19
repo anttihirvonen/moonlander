@@ -21,11 +21,13 @@ abstract class RocketController {
      * removes to need track time separately in subclasses
      */
     protected double currentRow;
+    private boolean playing;
     ArrayList<ControllerListener> listeners;
 
     public RocketController() {
         listeners = new ArrayList<ControllerListener>();
         currentRow = 0;
+        playing = false;
     }
 
     public void addEventListener(ControllerListener listener) {
@@ -52,15 +54,23 @@ abstract class RocketController {
 
     abstract public void update();
 
-    /**
-     * Pauses the controller.
-     */
-    abstract public void pause();
+    public boolean isPlaying() {
+        return playing;
+    }
 
-    /**
-     * Continues playing this controller.
-     */
-    abstract public void play();
+    private void setPlayState(boolean status) {
+        if (status != playing) {
+            playing = status;
+            for (ControllerListener listener: listeners)
+                listener.controllerStatusChanged(status);
+        }
+    }
 
-    abstract public boolean isPlaying();
+    public void pause() {
+        setPlayState(false);
+    }
+
+    public void play() {
+        setPlayState(true);
+    }
 }

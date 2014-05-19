@@ -9,16 +9,14 @@ package rocketpower.library;
 class TimeController extends RocketController {
     int rps;
     long lastMeterPoint;
-    boolean playing;
 
     TimeController(int rowsPerSecond) {
         rps = rowsPerSecond;
-        playing = false;
         lastMeterPoint = 0;
     }
 
     public void update() {
-        if (!playing)
+        if (!isPlaying())
             return;
 
         if (lastMeterPoint == 0)
@@ -30,23 +28,4 @@ class TimeController extends RocketController {
         lastMeterPoint = meter;
         setCurrentRow(currentRow + (timespan/1e9)*rps, false);
     }
-
-    public boolean isPlaying() {
-        return playing;
-    }
-
-    public void pause() {
-        if (playing)
-            playing = false;
-    }
-
-    public void play() {
-        if (!playing) {
-            playing = true;
-            lastMeterPoint = System.nanoTime();
-            for (ControllerListener listener: listeners)
-                listener.controllerStatusChanged(true);
-        }
-    }
-
 }
