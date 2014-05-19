@@ -16,8 +16,10 @@ class TimeController extends RocketController {
     }
 
     public void update() {
-        if (!isPlaying())
+        if (!isPlaying()) {
+            lastMeterPoint = 0;
             return;
+        }
 
         if (lastMeterPoint == 0)
             lastMeterPoint = System.nanoTime();
