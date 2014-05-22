@@ -128,7 +128,7 @@ class SocketDevice extends RocketDevice {
     }
 
     public void controllerRowChanged(int row) {
-        logger.finest("Communicating row change to rocket");
+        logger.finest("Communicating row="+row+" change to rocket");
 
         try {
             out.writeInt(Commands.SET_ROW);
@@ -142,6 +142,8 @@ class SocketDevice extends RocketDevice {
      * COMMAND HANDLING METHODS
      */
     public void handleCommandSetKey() throws IOException {
+        logger.finest("Handling SET_KEY");
+
         int trackId = in.readInt(); 
         int row = in.readInt();
         float value = in.readFloat();
@@ -155,6 +157,8 @@ class SocketDevice extends RocketDevice {
     }
 
     public void handleCommandDeleteKey() throws IOException {
+        logger.finest("Handling DELETE_KEY");
+
         int trackId = in.readInt();
         int row = in.readInt();
 
@@ -164,11 +168,17 @@ class SocketDevice extends RocketDevice {
     }
 
     public void handleCommandSetRow() throws IOException {
+        logger.finest("Handling SET_ROW");
+
         int row = in.readInt();
+        // suppress events, otherwise a loop between demo
+        // and Rocket emerges
         controller.setCurrentRow(row, true);
     }
 
     public void handleCommandPause() throws IOException {
+        logger.finest("Handling PAUSE");
+
         byte flag = in.readByte();
         if (flag > 0)
             controller.pause();
@@ -177,6 +187,7 @@ class SocketDevice extends RocketDevice {
     }
 
     public void handleCommandSaveTracks() throws IOException {
+        logger.finest("Handling SAVE_TRACKS");
 
     }
     /**
@@ -190,8 +201,9 @@ class SocketDevice extends RocketDevice {
         byte cid;
 
         while (in.available() != 0) {
+            logger.finest("Available bytes from Rocket: " + in.available());
+
             cid = in.readByte();
-            logger.finer(String.format("Read command: %d", cid));
 
             switch (cid) {
                 case Commands.SET_KEY:
