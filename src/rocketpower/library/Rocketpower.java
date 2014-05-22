@@ -126,6 +126,10 @@ public class Rocketpower {
         return tracks.getOrCreate(name);
     }
 
+    public double getValue(String name) {
+        return getTrack(name).getValue(controller.getCurrentRow());
+    }
+
     /**
      * Returns the version of the library.
      * 
