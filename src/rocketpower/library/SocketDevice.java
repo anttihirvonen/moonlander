@@ -25,8 +25,6 @@ class SocketDevice extends RocketDevice {
     private final String CLIENT_GREET = "hello, synctracker!";
     private final String SERVER_GREET = "hello, demo!";
 
-    private HashMap<Integer, RocketCommand> commands;
-
     private static class Commands {
         static final int SET_KEY        = 0;
         static final int DELETE_KEY     = 1;
@@ -36,74 +34,11 @@ class SocketDevice extends RocketDevice {
         static final int SAVE_TRACKS    = 5;
     }
 
-    private class InCommandSetKey implements RocketCommand {
-        public void handle() throws Exception {
-            int trackId = in.readInt(); 
-            int row = in.readInt();
-            float value = in.readFloat();
-            byte type = in.readByte();
-
-            Track t = tracks.getById(trackId);
-            if (t != null) 
-                t.addOrUpdateKey(new TrackKey(row, value, (int) type));
-
-            t.printKeys();
-
-        }
-    }
-
-    private class InCommandDeleteKey implements RocketCommand {
-        public void handle() throws Exception {
-            int trackId = in.readInt();
-            int row = in.readInt();
-
-            Track t = tracks.getById(trackId);
-            if (t != null)
-                t.deleteKey(row);
-        }
-    }
-
-    private class InCommandSetRow implements RocketCommand {
-        public void handle() throws Exception {
-            int row = in.readInt();
-            controller.setCurrentRow(row, true);
-        }
-    }
-
-    private class InCommandPause implements RocketCommand {
-        public void handle() throws Exception {
-            byte flag = in.readByte();
-            if (flag > 0)
-                controller.pause();
-            else
-                controller.play();
-        }
-    }
-
-    private class InCommandSaveTracks implements RocketCommand {
-        public void handle() throws Exception {
-        }
-    }
-
-    private class OutCommandGetTrack implements RocketCommand {
-        public void handle() throws Exception {
-            // Impl elsewhere for now
-        }
-    }
-
     /*
      * Connects to GNU Rocket.
      */
     public SocketDevice(Logger logger, TrackContainer tracks, RocketController controller, String host, int port) throws Exception {
         super(logger, tracks, controller);
-
-        // Init command mappings
-        commands = new HashMap<Integer, RocketCommand>();
-        commands.put(new Integer(Commands.SET_KEY), new InCommandSetKey());
-        commands.put(new Integer(Commands.DELETE_KEY), new InCommandDeleteKey());
-        commands.put(new Integer(Commands.SET_ROW), new InCommandSetRow());
-        commands.put(new Integer(Commands.PAUSE), new InCommandPause());
-        commands.put(new Integer(Commands.SAVE_TRACKS), new InCommandSaveTracks());
 
         logger.fine(String.format("Trying to connect to Rocket at %s:%d", host, port));
 
@@ -203,6 +138,47 @@ class SocketDevice extends RocketDevice {
         }
     }
 
+    /*
+     * COMMAND HANDLING METHODS
+     */
+    public void handleCommandSetKey() throws IOException {
+        int trackId = in.readInt(); 
+        int row = in.readInt();
+        float value = in.readFloat();
+        byte type = in.readByte();
+
+        Track t = tracks.getById(trackId);
+        if (t != null) 
+            t.addOrUpdateKey(new TrackKey(row, value, (int) type));
+
+        t.printKeys();
+    }
+
+    public void handleCommandDeleteKey() throws IOException {
+        int trackId = in.readInt();
+        int row = in.readInt();
+
+        Track t = tracks.getById(trackId);
+        if (t != null)
+            t.deleteKey(row);
+    }
+
+    public void handleCommandSetRow() throws IOException {
+        int row = in.readInt();
+        controller.setCurrentRow(row, true);
+    }
+
+    public void handleCommandPause() throws IOException {
+        byte flag = in.readByte();
+        if (flag > 0)
+            controller.pause();
+        else
+            controller.play();
+    }
+
+    public void handleCommandSaveTracks() throws IOException {
+
+    }
     /**
      * Reads pending rocket commands from socket.
      *
@@ -217,12 +193,25 @@ class SocketDevice extends RocketDevice {
             cid = in.readByte();
             logger.finer(String.format("Read command: %d", cid));
 
-            RocketCommand command = commands.get(new Integer(cid));
-
-            if (command != null)
-                command.handle();
-            else
-                logger.warning(String.format("Unknown command id=%d", cid));
+            switch (cid) {
+                case Commands.SET_KEY:
+                    handleCommandSetKey();
+                    break;
+                case Commands.DELETE_KEY:
+                    handleCommandDeleteKey();
+                    break;
+                case Commands.SET_ROW:
+                    handleCommandSetRow();
+                    break;
+                case Commands.PAUSE:
+                    handleCommandPause();
+                    break;
+                case Commands.SAVE_TRACKS:
+                    handleCommandSaveTracks();
+                    break;
+                default:
+                    logger.warning(String.format("Unknown command id=%d", cid));
+            }
         }
     }
 }
