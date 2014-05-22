@@ -69,12 +69,12 @@ public class Rocketpower {
      * @param filePath path to Rocket's XML-file
      * @param debug if true, output debug data to stdout
      */
-    public Rocketpower(String host, int port, String filePath, Level logLevel) {
+    public Rocketpower(RocketController controller, String host, int port, String filePath, Level logLevel) {
         setupLogging(logLevel);
         logger.info("Initializing Rocketpower");
 
         tracks = new TrackContainer();
-        controller = new TimeController(4);
+        this.controller = controller;
 
         // If connection to rocket fails, try to load syncdata from file
         try {
@@ -98,8 +98,8 @@ public class Rocketpower {
     /**
      * Initializes library with sane default values.
      */
-    public Rocketpower(Level logLevel) {
-        this("localhost", 1338, "syncdata.xml", logLevel);
+    public Rocketpower(RocketController controller, Level logLevel) {
+        this(controller, "localhost", 1338, "syncdata.xml", logLevel);
     }
 
     /**
@@ -108,8 +108,8 @@ public class Rocketpower {
      * Uses localhost:1338 for GNU Rocket connection and syncdata.xml
      * as file if connection cannot be established.
      */
-    public Rocketpower() {
-        this(Level.OFF);
+    public Rocketpower(RocketController controller) {
+        this(controller, Level.OFF);
     }
 
     // temporary update method, call in sketc#draw
