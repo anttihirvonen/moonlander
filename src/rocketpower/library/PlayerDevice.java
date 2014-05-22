@@ -10,8 +10,8 @@ class PlayerDevice extends RocketDevice {
     /*
      * Read syncdata from given path
      */
-    public PlayerDevice(Logger logger, TrackContainer tracks, String path) {
-        super(logger, tracks);
+    public PlayerDevice(Logger logger, TrackContainer tracks, RocketController controller, String path) {
+        super(logger, tracks, controller);
 
     }
 

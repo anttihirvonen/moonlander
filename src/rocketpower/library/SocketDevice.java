@@ -90,8 +90,8 @@ class SocketDevice extends RocketDevice {
     /*
      * Connects to GNU Rocket.
      */
-    public SocketDevice(Logger logger, TrackContainer tracks, String host, int port) throws Exception {
-        super(logger, tracks);
+    public SocketDevice(Logger logger, TrackContainer tracks, RocketController controller, String host, int port) throws Exception {
+        super(logger, tracks, controller);
 
         // Init command mappings
         commands = new HashMap<Integer, RocketCommand>();

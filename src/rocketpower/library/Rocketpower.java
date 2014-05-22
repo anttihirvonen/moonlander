@@ -53,6 +53,8 @@ public class Rocketpower {
     // Connection device
     private RocketDevice device;
 
+    private RocketController controller;
+
     private static Logger logger = Logger.getLogger("rocketpower.library");
 
     /**
@@ -72,12 +74,13 @@ public class Rocketpower {
         logger.info("Initializing Rocketpower");
 
         tracks = new TrackContainer();
+        controller = new TimeController(4);
 
         // If connection to rocket fails, try to load syncdata from file
         try {
-            device = new SocketDevice(logger, tracks, host, port);
+            device = new SocketDevice(logger, tracks, controller, host, port);
         } catch (Exception e) {
-            device = new PlayerDevice(logger, tracks, filePath);
+            device = new PlayerDevice(logger, tracks, controller, filePath);
         }
     }
 
@@ -112,6 +115,9 @@ public class Rocketpower {
     // temporary update method, call in sketc#draw
     // TODO: extend from PApplet and hard-wire updating
     public void update() {
+        // Update controller values (may fire events)
+        controller.update();
+        // Communicate with device
         device.update();
     }
 
