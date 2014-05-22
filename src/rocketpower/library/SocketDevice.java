@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.util.logging.Logger;
+import java.io.IOException;
 
 
 interface RocketCommand {
@@ -64,15 +65,18 @@ class SocketDevice extends RocketDevice {
 
     private class InCommandSetRow implements RocketCommand {
         public void handle() throws Exception {
-            // TODO: notify controller about row change
-            in.readInt();
+            int row = in.readInt();
+            controller.setCurrentRow(row, true);
         }
     }
 
     private class InCommandPause implements RocketCommand {
         public void handle() throws Exception {
-            // TODO: notify controller about pause
-            in.readByte();
+            byte flag = in.readByte();
+            if (flag > 0)
+                controller.pause();
+            else
+                controller.play();
         }
     }
 
@@ -181,6 +185,22 @@ class SocketDevice extends RocketDevice {
             logger.severe("Communication with Rocket failed!");
         }
         logger.finer("New track fetched from Rocket.");
+    }
+
+    public void controllerStatusChanged(boolean isPlaying) {
+        // Rocket doesn't implement this yet!
+        // Would be useful to control Rocket from demo's side
+    }
+
+    public void controllerRowChanged(int row) {
+        logger.finest("Communicating row change to rocket");
+
+        try {
+            out.writeInt(Commands.SET_ROW);
+            out.writeInt(row);
+        } catch (Exception e) {
+            logger.severe("Communication with Rocket failed!");
+        }
     }
 
     /**
