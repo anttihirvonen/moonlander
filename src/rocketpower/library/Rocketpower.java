@@ -32,7 +32,8 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.logging.*;
-// import processing.core.*;
+import processing.core.*;
+import ddf.minim.*;
 
 
 /**
@@ -89,6 +90,17 @@ public class Rocketpower {
      */
     public Rocketpower(RocketController controller) {
         this(controller, "localhost", 1338, "syncdata.xml");
+    }
+
+    /**
+     * Shortcut to initializing Rocket connection
+     * with given soundtrack file (uses MinimController).
+     */
+    public static Rocketpower initWithSoundtrack(PApplet applet, String filename, int beatsPerMinute, int rowsPerBeat) {
+        Minim minim = new Minim(applet);
+        AudioPlayer song = minim.loadFile(filename, 1024);
+
+        return new Rocketpower(new MinimController(song, beatsPerMinute, rowsPerBeat));
     }
 
     private void setupLogging(Level logLevel) {
