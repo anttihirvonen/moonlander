@@ -152,8 +152,6 @@ class SocketDevice extends RocketDevice {
         Track t = tracks.getById(trackId);
         if (t != null) 
             t.addOrUpdateKey(new TrackKey(row, value, (int) type));
-
-        t.printKeys();
     }
 
     public void handleCommandDeleteKey() throws IOException {
