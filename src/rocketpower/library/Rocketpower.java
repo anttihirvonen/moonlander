@@ -48,6 +48,8 @@ import ddf.minim.*;
 public class Rocketpower {
     public final static String VERSION = "##library.prettyVersion##";
 
+    PApplet parent;
+
     // Main collection of all tracks
     private TrackContainer tracks;
 
@@ -70,11 +72,12 @@ public class Rocketpower {
      * @param filePath path to Rocket's XML-file
      * @param debug if true, output debug data to stdout
      */
-    public Rocketpower(RocketController controller, String host, int port, String filePath) {
+    public Rocketpower(PApplet parent, RocketController controller, String host, int port, String filePath) {
         setupLogging(Level.OFF);
         logger.info("Initializing Rocketpower");
 
         tracks = new TrackContainer();
+        this.parent = parent;
         this.controller = controller;
 
         // If connection to rocket fails, try to load syncdata from file
@@ -88,8 +91,8 @@ public class Rocketpower {
     /**
      * Initializes library with sane default values.
      */
-    public Rocketpower(RocketController controller) {
-        this(controller, "localhost", 1338, "syncdata.xml");
+    public Rocketpower(PApplet parent, RocketController controller) {
+        this(parent, controller, "localhost", 1338, "syncdata.rocket");
     }
 
     /**
@@ -100,7 +103,7 @@ public class Rocketpower {
         Minim minim = new Minim(applet);
         AudioPlayer song = minim.loadFile(filename, 1024);
 
-        return new Rocketpower(new MinimController(song, beatsPerMinute, rowsPerBeat));
+        return new Rocketpower(applet, new MinimController(song, beatsPerMinute, rowsPerBeat));
     }
 
     private void setupLogging(Level logLevel) {
