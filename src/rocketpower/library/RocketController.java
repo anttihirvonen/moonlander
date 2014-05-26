@@ -34,6 +34,10 @@ abstract class RocketController {
         listeners.add(listener);
     }
 
+    public void removeEventListener(ControllerListener listener) {
+        listeners.remove(listener);
+    }
+
     public double getCurrentRow() {
         return currentRow;
     }

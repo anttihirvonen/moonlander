@@ -22,10 +22,11 @@ abstract class RocketDevice implements TrackContainerListener, ControllerListene
     /**
      * If device has been initialized, it must be closed.
      *
-     * Removes event listener.
+     * Removes event listeners.
      */
     public void close() {
         this.tracks.removeEventListener(this);
+        this.controller.removeEventListener(this);
     }
 
     abstract public void update();
