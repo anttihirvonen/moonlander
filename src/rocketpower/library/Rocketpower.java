@@ -72,27 +72,14 @@ public class Rocketpower {
      * @param filePath path to Rocket's XML-file
      * @param debug if true, output debug data to stdout
      */
-    public Rocketpower(PApplet parent, RocketController controller, String host, int port, String filePath) {
+    public Rocketpower(PApplet parent, RocketController controller) {
+        // Start with logging off.
+        // Can be enabled with changeLogLevel()
         setupLogging(Level.OFF);
-        logger.info("Initializing Rocketpower");
 
         tracks = new TrackContainer();
         this.parent = parent;
         this.controller = controller;
-
-        // If connection to rocket fails, try to load syncdata from file
-        try {
-            device = new SocketDevice(logger, tracks, controller, host, port);
-        } catch (Exception e) {
-            device = new PlayerDevice(logger, tracks, controller, filePath);
-        }
-    }
-
-    /**
-     * Initializes library with sane default values.
-     */
-    public Rocketpower(PApplet parent, RocketController controller) {
-        this(parent, controller, "localhost", 1338, "syncdata.rocket");
     }
 
     /**
@@ -119,6 +106,29 @@ public class Rocketpower {
 
     public void changeLogLevel(Level logLevel) {
         logger.setLevel(logLevel);
+    }
+
+    /** 
+     * Fires up the connection to Rocket or loads
+     * data from XML syncfile
+     */
+    public void start(String host, int port, String filePath) {
+        logger.info("Firing up Rocketpower");
+
+        // If connection to rocket fails, try to load syncdata from file
+        try {
+            device = new SocketDevice(logger, tracks, controller, host, port);
+        } catch (Exception e) {
+            try {
+                device = new PlayerDevice(logger, tracks, controller, parent.sketchPath(filePath));
+            } catch (Exception ex) {
+                logger.severe("Both devices failed.");
+            }
+        }
+    }
+
+    public void start() {
+        start("localhost", 1338, "syncdata.rocket");
     }
 
     // temporary update method, call in sketc#draw
