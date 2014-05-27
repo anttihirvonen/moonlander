@@ -1,4 +1,4 @@
-package rocketpower.library;
+package moonlander.library;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import rocketpower.library.*;
+import moonlander.library.*;
 
 import java.util.List;
 

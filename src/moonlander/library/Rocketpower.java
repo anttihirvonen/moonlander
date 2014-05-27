@@ -24,7 +24,7 @@
  * @modified    ##date##
  * @version     ##library.prettyVersion## (##library.version##)
  */
-package rocketpower.library;
+package moonlander.library;
 
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class Rocketpower {
 
     private Controller controller;
 
-    private static Logger logger = Logger.getLogger("rocketpower.library");
+    private static Logger logger = Logger.getLogger("moonlander.library");
 
     /**
      * Initializes library and tries to load syncdata.

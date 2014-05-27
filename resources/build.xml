@@ -1,4 +1,4 @@
-<project name="Rocketpower" default="clean" basedir="../">
+<project name="Moonlander" default="clean" basedir="../">
     <!-- load properties from separate file -->
     <property file="./resources/build.properties" />
 
