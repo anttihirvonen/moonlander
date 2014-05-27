@@ -37,7 +37,7 @@ class SocketConnector extends Connector {
     /*
      * Connects to GNU Rocket.
      */
-    public SocketConnector(Logger logger, TrackContainer tracks, RocketController controller, String host, int port) throws Exception {
+    public SocketConnector(Logger logger, TrackContainer tracks, Controller controller, String host, int port) throws Exception {
         super(logger, tracks, controller);
 
         logger.fine(String.format("Trying to connect to Rocket at %s:%d", host, port));

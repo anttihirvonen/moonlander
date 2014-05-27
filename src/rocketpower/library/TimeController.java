@@ -6,7 +6,7 @@ package rocketpower.library;
  * without music track. Just tracks time and
  * advances row as fast as desired.
  */
-class TimeController extends RocketController {
+class TimeController extends Controller {
     int rps;
     long lastMeterPoint;
 

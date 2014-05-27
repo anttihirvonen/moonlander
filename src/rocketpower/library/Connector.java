@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 abstract class Connector implements TrackContainerListener, ControllerListener {
     protected TrackContainer tracks;
     protected Logger logger;
-    protected RocketController controller;
+    protected Controller controller;
 
-    Connector(Logger logger, TrackContainer tracks, RocketController controller) {
+    Connector(Logger logger, TrackContainer tracks, Controller controller) {
         this.logger = logger;
         this.tracks = tracks;
         this.tracks.addEventListener(this);

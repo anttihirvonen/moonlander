@@ -56,7 +56,7 @@ public class Rocketpower {
     // Connection interface
     private Connector connector;
 
-    private RocketController controller;
+    private Controller controller;
 
     private static Logger logger = Logger.getLogger("rocketpower.library");
 
@@ -72,7 +72,7 @@ public class Rocketpower {
      * @param filePath path to Rocket's XML-file
      * @param debug if true, output debug data to stdout
      */
-    public Rocketpower(PApplet parent, RocketController controller) {
+    public Rocketpower(PApplet parent, Controller controller) {
         // Start with logging off.
         // Can be enabled with changeLogLevel()
         setupLogging(Level.OFF);

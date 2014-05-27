@@ -20,7 +20,7 @@ class ProjectFileConnector extends Connector {
     /*
      * Read syncdata from given path
      */
-    public ProjectFileConnector(Logger logger, TrackContainer tracks, RocketController controller, String path) throws Exception {
+    public ProjectFileConnector(Logger logger, TrackContainer tracks, Controller controller, String path) throws Exception {
         super(logger, tracks, controller);
 
         try {

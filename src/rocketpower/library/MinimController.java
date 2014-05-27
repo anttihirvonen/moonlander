@@ -3,7 +3,7 @@ package rocketpower.library;
 import ddf.minim.*;
 
 
-public class MinimController extends RocketController {
+public class MinimController extends Controller {
     AudioPlayer player;
     double rowsPerSecond;
 

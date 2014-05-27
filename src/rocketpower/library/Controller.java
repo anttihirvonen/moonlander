@@ -11,11 +11,11 @@ interface ControllerListener {
 
 
 /**
- * RocketController and it's subclasses
+ * Controller and it's subclasses
  * interface Rocket controllation with music
  * / time source.
  */ 
-abstract class RocketController {
+abstract class Controller {
     /*
      * Keeping track of fractional rows in baseclass
      * removes to need track time separately in subclasses
@@ -24,7 +24,7 @@ abstract class RocketController {
     private boolean playing;
     ArrayList<ControllerListener> listeners;
 
-    public RocketController() {
+    public Controller() {
         listeners = new ArrayList<ControllerListener>();
         currentRow = 0;
         playing = false;
