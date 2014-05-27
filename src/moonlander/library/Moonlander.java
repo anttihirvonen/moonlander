@@ -37,7 +37,7 @@ import ddf.minim.*;
 
 
 /**
- * Rocketpower
+ * Moonlander
  * 
  * @example Integration 
  * 
@@ -45,7 +45,7 @@ import ddf.minim.*;
  * automatically include the example in the javadoc.)
  *
  */
-public class Rocketpower {
+public class Moonlander {
     public final static String VERSION = "##library.prettyVersion##";
 
     PApplet parent;
@@ -72,7 +72,7 @@ public class Rocketpower {
      * @param filePath path to Rocket's XML-file
      * @param debug if true, output debug data to stdout
      */
-    public Rocketpower(PApplet parent, Controller controller) {
+    public Moonlander(PApplet parent, Controller controller) {
         // Start with logging off.
         // Can be enabled with changeLogLevel()
         setupLogging(Level.OFF);
@@ -86,11 +86,11 @@ public class Rocketpower {
      * Shortcut to initializing Rocket connection
      * with given soundtrack file (uses MinimController).
      */
-    public static Rocketpower initWithSoundtrack(PApplet applet, String filename, int beatsPerMinute, int rowsPerBeat) {
+    public static Moonlander initWithSoundtrack(PApplet applet, String filename, int beatsPerMinute, int rowsPerBeat) {
         Minim minim = new Minim(applet);
         AudioPlayer song = minim.loadFile(filename, 1024);
 
-        return new Rocketpower(applet, new MinimController(song, beatsPerMinute, rowsPerBeat));
+        return new Moonlander(applet, new MinimController(song, beatsPerMinute, rowsPerBeat));
     }
 
     private void setupLogging(Level logLevel) {
@@ -113,7 +113,7 @@ public class Rocketpower {
      * data from XML syncfile
      */
     public void start(String host, int port, String filePath) {
-        logger.info("Firing up Rocketpower");
+        logger.info("Firing up Moonlander");
 
         // If connection to rocket fails, try to load syncdata from file
         try {
