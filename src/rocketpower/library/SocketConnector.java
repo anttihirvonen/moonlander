@@ -17,7 +17,7 @@ interface RocketCommand {
 /*
  * Implements connection with GNU Rocket.
  */
-class SocketDevice extends RocketDevice {
+class SocketConnector extends Connector {
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;
@@ -37,7 +37,7 @@ class SocketDevice extends RocketDevice {
     /*
      * Connects to GNU Rocket.
      */
-    public SocketDevice(Logger logger, TrackContainer tracks, RocketController controller, String host, int port) throws Exception {
+    public SocketConnector(Logger logger, TrackContainer tracks, RocketController controller, String host, int port) throws Exception {
         super(logger, tracks, controller);
 
         logger.fine(String.format("Trying to connect to Rocket at %s:%d", host, port));

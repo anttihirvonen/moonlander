@@ -4,14 +4,15 @@ import java.util.logging.Logger;
 
 
 /*
- * Connection device baseclass
+ * Abstract baseclass for connection between demo and
+ * Rocket / sync data files
  */
-abstract class RocketDevice implements TrackContainerListener, ControllerListener {
+abstract class Connector implements TrackContainerListener, ControllerListener {
     protected TrackContainer tracks;
     protected Logger logger;
     protected RocketController controller;
 
-    RocketDevice(Logger logger, TrackContainer tracks, RocketController controller) {
+    Connector(Logger logger, TrackContainer tracks, RocketController controller) {
         this.logger = logger;
         this.tracks = tracks;
         this.tracks.addEventListener(this);

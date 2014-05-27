@@ -16,11 +16,11 @@ import org.xml.sax.SAXParseException;
 /*
  * Implements "connection" with exported sync data files.
  */
-class PlayerDevice extends RocketDevice {
+class ProjectFileConnector extends Connector {
     /*
      * Read syncdata from given path
      */
-    public PlayerDevice(Logger logger, TrackContainer tracks, RocketController controller, String path) throws Exception {
+    public ProjectFileConnector(Logger logger, TrackContainer tracks, RocketController controller, String path) throws Exception {
         super(logger, tracks, controller);
 
         try {

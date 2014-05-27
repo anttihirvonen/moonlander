@@ -53,8 +53,8 @@ public class Rocketpower {
     // Main collection of all tracks
     private TrackContainer tracks;
 
-    // Connection device
-    private RocketDevice device;
+    // Connection interface
+    private Connector connector;
 
     private RocketController controller;
 
@@ -117,10 +117,10 @@ public class Rocketpower {
 
         // If connection to rocket fails, try to load syncdata from file
         try {
-            device = new SocketDevice(logger, tracks, controller, host, port);
+            connector = new SocketConnector(logger, tracks, controller, host, port);
         } catch (Exception e) {
             try {
-                device = new PlayerDevice(logger, tracks, controller, parent.sketchPath(filePath));
+                connector = new ProjectFileConnector(logger, tracks, controller, parent.sketchPath(filePath));
             } catch (Exception ex) {
                 logger.severe("Both devices failed.");
             }
@@ -137,7 +137,7 @@ public class Rocketpower {
         // Update controller values (may fire events)
         controller.update();
         // Communicate with device
-        device.update();
+        connector.update();
     }
 
     // temporary(?) proxy method for getting track
