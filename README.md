@@ -6,7 +6,7 @@ If you don't know what GNU Rocket is, read about it [here](https://github.com/ku
 
 ## Installation
 
-Extract the library into the libraries folder of your Processing sketchbook. More info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library).
+Extract the library into the libraries folder of your Processing sketchbook. More info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library) (see section about manual install).
 
 TBD: This library should be in Processing's database (which makes install process super easy)
 
@@ -15,12 +15,20 @@ TBD: This library should be in Processing's database (which makes install proces
 
 Initialize the library, call `start()` at the end of `setup()`, call `update()` for every frame and you're done. You can query current value of any track by calling `getValue(String trackName)`.
 
+If GNU Rocket is running at it's default address and port (localhost:1338), Moonlander attaches itself to it. If connection cannot be made, the data is loaded from a file called `syncdata.rocket`, which should be in your sketch's folder. Workflow goes like this:
+
+1. Run GNU Rocket.
+2. Start your sketch. Sketch connects to GNU Rocket using Moonlander. Rocket takes control of your sketch.
+3. Develop and sync. GNU Rocket keeps your data even if you close the running sketch. When you start it again, Rocket lets you continue where you left off. 
+4. Before you close Rocket, save project to a file called `syncdata.rocket` and place it in your sketch's folder. When Rocket isn't running, this is the file Moonlander by default tries to load your syncdata from.
+5. You can distribute your sketch with the saved syncdata file and everything should work as normal!
+
 Example:
 
 ```
 void setup() {
-    // Parameters: filename, beats per minute, rows per beat
-    Moonlander moonlander = Moonlander.initWithSoundTrack("filename.mp3", 120, 4);
+    // Parameters: PApplet, filename (file should be in sketch's folder), beats per minute, rows per beat
+    Moonlander moonlander = Moonlander.initWithSoundTrack(this, "filename.mp3", 120, 4);
 
     // .. other initialization code ...
 
@@ -42,7 +50,12 @@ void draw() {
 
 ## API
 
+Moonlandander is mainly operated through it's main class, which is unsurprisignly called Moonlander. Normally (I'd say 99,9% of cases) you only need this class to use the library. However, if you wan't to do something fancy, like build your own controller, you need to dig a little deeper. 
+
+### Moonlander
+
 TODO: document
+
 
 ## For developers
 
