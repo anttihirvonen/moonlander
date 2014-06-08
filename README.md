@@ -8,7 +8,7 @@ If you don't know what GNU Rocket is, read about it [here](https://github.com/ku
 
 ### From release package
 
-Download the latest release from this url. Extract the library into the libraries folder of your Processing sketchbook. More info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library) (see section about manual install).
+Download the latest release from [this url](http://firebug.kapsi.fi/moonlander/Moonlander.zip). Extract the library into the libraries folder of your Processing sketchbook (..libraries/Moonlander). More info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library) (see section about manual install).
 
 TBD: This library should be in Processing's database (which makes install process super easy)
 
@@ -16,7 +16,7 @@ TBD: This library should be in Processing's database (which makes install proces
 
 Edit variables `sketchbook.location` and `classpath.local.location` in `resources/build.properties`. By default, the build process only works on Mac – for other platforms, you must edit the mentioned variables for build to succeed (this is clumsy and should be replaced with better solution later on, but suffices for now).
 
-Build with `ant -f resources/build.xml`. Build process automatically also installs the library into `Processing/libraries`, so it will be immediately usable in Processing. Try the example below!
+Build the library with `ant -f resources/build.xml` – the build process also automatically installs the library into Processing's library folder, so it will be immediately usable. Try the example below!
 
 
 ## Usage
