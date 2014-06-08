@@ -75,7 +75,7 @@ public class Moonlander {
     public Moonlander(PApplet parent, Controller controller) {
         // Start with logging off.
         // Can be enabled with changeLogLevel()
-        setupLogging(Level.OFF);
+        setupLogging(Level.SEVERE);
 
         tracks = new TrackContainer();
         this.parent = parent;
@@ -122,7 +122,7 @@ public class Moonlander {
             try {
                 connector = new ProjectFileConnector(logger, tracks, controller, parent.sketchPath(filePath));
             } catch (Exception ex) {
-                logger.severe("Both devices failed.");
+                logger.severe("Both connectors failed. Either run Rocket or put 'syncdata.rocket' file into sketch's folder.");
             }
         }
     }
