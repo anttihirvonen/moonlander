@@ -6,11 +6,11 @@ package moonlander.library;
  * without music track. Just tracks time and
  * advances row as fast as desired.
  */
-class TimeController extends Controller {
+public class TimeController extends Controller {
     int rps;
     long lastMeterPoint;
 
-    TimeController(int rowsPerSecond) {
+    public TimeController(int rowsPerSecond) {
         rps = rowsPerSecond;
         lastMeterPoint = 0;
     }
