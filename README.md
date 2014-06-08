@@ -6,9 +6,17 @@ If you don't know what GNU Rocket is, read about it [here](https://github.com/ku
 
 ## Installation
 
-Extract the library into the libraries folder of your Processing sketchbook. More info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library) (see section about manual install).
+### From release package
+
+Download the latest release from this url. Extract the library into the libraries folder of your Processing sketchbook. More info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library) (see section about manual install).
 
 TBD: This library should be in Processing's database (which makes install process super easy)
+
+### From sources (Git repository)
+
+Edit variables `sketchbook.location` and `classpath.local.location` in `resources/build.properties`. By default, the build process only works on Mac – for other platforms, you must edit the mentioned variables for build to succeed (this is clumsy and should be replaced with better solution later on, but suffices for now).
+
+Build with `ant -f resources/build.xml`. Build process automatically also installs the library into `Processing/libraries`, so it will be immediately usable in Processing. Try the example below!
 
 
 ## Usage
@@ -26,9 +34,17 @@ If GNU Rocket is running at it's default address and port (localhost:1338), Moon
 Example:
 
 ```
+import moonlander.library.*;
+
+// Minim must be imported when using Moonlander with soundtrack.
+import ddf.minim.*;
+
+Moonlander moonlander;
+
 void setup() {
-    // Parameters: PApplet, filename (file should be in sketch's folder), beats per minute, rows per beat
-    Moonlander moonlander = Moonlander.initWithSoundTrack(this, "filename.mp3", 120, 4);
+    // Parameters: PApplet, filename (file should be in sketch's folder), 
+    // beats per minute, rows per beat
+    moonlander = Moonlander.initWithSoundtrack(this, "filename.mp3", 120, 4);
 
     // .. other initialization code ...
 
@@ -47,6 +63,8 @@ void draw() {
 }
 
 ```
+
+If you want to run Moonlander without a music track, replace line `moonlander = Moonlander.initWithSoundTrack(this, "filename.mp3", 120, 4);` with `moonlander = new Moonlander(this, new TimeController(4));`, where the integer parameter to `TimeController` is rows per second.
 
 ## API
 
