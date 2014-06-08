@@ -151,6 +151,10 @@ public class Moonlander {
         return getTrack(name).getValue(controller.getCurrentRow());
     }
 
+    public double getCurrentTime() {
+        return controller.getCurrentTime();
+    }
+
     /**
      * Returns the version of the library.
      * 

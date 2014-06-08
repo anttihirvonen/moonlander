@@ -45,6 +45,10 @@ abstract class Controller {
         return currentRow;
     }
 
+    public double getCurrentTime() {
+        return currentRow / rowsPerSecond;
+    }
+
     /**
      * @param row new row value
      * @param silent to suppress notifications
