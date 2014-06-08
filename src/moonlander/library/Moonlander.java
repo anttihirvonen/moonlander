@@ -134,10 +134,12 @@ public class Moonlander {
     // temporary update method, call in sketc#draw
     // TODO: extend from PApplet and hard-wire updating
     public void update() {
-        // Update controller values (may fire events)
-        controller.update();
-        // Communicate with device
-        connector.update();
+        if (controller != null && connector != null) {
+            // Update controller values (may fire events)
+            controller.update();
+            // Communicate with device
+            connector.update();
+        }
     }
 
     // temporary(?) proxy method for getting track
