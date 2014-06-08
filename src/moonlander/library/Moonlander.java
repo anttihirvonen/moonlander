@@ -109,10 +109,16 @@ public class Moonlander {
     }
 
     /** 
-     * Fires up the connection to Rocket or loads
-     * data from XML syncfile
+     * Fires up the connection to Rocket, or in case of
+     * connection failure, loads data from given XML syncfile.
+     *
+     * If both connectors fail, a message is logged with level SEVERE.
+     * Use changeLogLevel() to see more fine grained output if you need
+     * to investigate.
+     *
+     * @return true if connector was initialized, otherwise false.
      */
-    public void start(String host, int port, String filePath) {
+    public boolean start(String host, int port, String filePath) {
         logger.info("Firing up Moonlander");
 
         // If connection to rocket fails, try to load syncdata from file
@@ -123,12 +129,22 @@ public class Moonlander {
                 connector = new ProjectFileConnector(logger, tracks, controller, parent.sketchPath(filePath));
             } catch (Exception ex) {
                 logger.severe("Both connectors failed. Either run Rocket or put 'syncdata.rocket' file into sketch's folder.");
+                return false;
             }
         }
+
+        return true;
     }
 
-    public void start() {
-        start("localhost", 1338, "syncdata.rocket");
+    /**
+     * Shortcut for starting Moonlander with sane defaults.
+     *
+     * Rocket is assumed to be running at localhost:1338.
+     * If connection fails, syncdata is loaded from a
+     * file called 'syncdata.rocket' instead.
+     */
+    public boolean start() {
+        return start("localhost", 1338, "syncdata.rocket");
     }
 
     // temporary update method, call in sketc#draw
