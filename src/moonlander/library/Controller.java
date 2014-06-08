@@ -21,12 +21,15 @@ abstract class Controller {
      * removes to need track time separately in subclasses
      */
     protected double currentRow;
+    protected double rowsPerSecond;
+
     private boolean playing;
     ArrayList<ControllerListener> listeners;
 
-    public Controller() {
+    public Controller(double rps) {
         listeners = new ArrayList<ControllerListener>();
         currentRow = 0;
+        rowsPerSecond = rps;
         playing = false;
     }
 

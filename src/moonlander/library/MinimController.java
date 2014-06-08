@@ -5,11 +5,10 @@ import ddf.minim.*;
 
 public class MinimController extends Controller {
     AudioPlayer player;
-    double rowsPerSecond;
 
     public MinimController(AudioPlayer player, int beatsPerMinute, int rowsPerBeat) {
+        super((beatsPerMinute / 60.0) * rowsPerBeat);
         this.player = player;
-        rowsPerSecond = (beatsPerMinute / 60.0) * rowsPerBeat;
     }
 
     public void update() {

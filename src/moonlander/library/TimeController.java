@@ -7,11 +7,10 @@ package moonlander.library;
  * advances row as fast as desired.
  */
 public class TimeController extends Controller {
-    int rps;
     long lastMeterPoint;
 
     public TimeController(int rowsPerSecond) {
-        rps = rowsPerSecond;
+        super(rowsPerSecond);
         lastMeterPoint = 0;
     }
 
@@ -28,6 +27,6 @@ public class TimeController extends Controller {
         long meter = System.nanoTime();
         long timespan = meter - lastMeterPoint;
         lastMeterPoint = meter;
-        setCurrentRow(currentRow + (timespan/1e9)*rps, false);
+        setCurrentRow(currentRow + (timespan/1e9)*rowsPerSecond, false);
     }
 }
