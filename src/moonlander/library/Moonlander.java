@@ -167,6 +167,13 @@ public class Moonlander {
         return getTrack(name).getValue(controller.getCurrentRow());
     }
 
+    public int getIntValue(String name) {
+        return (int)getValue(name);
+    }
+
+    /**
+     * Returns current time in seconds.
+     */
     public double getCurrentTime() {
         return controller.getCurrentTime();
     }
