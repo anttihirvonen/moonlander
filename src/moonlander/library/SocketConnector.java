@@ -46,6 +46,7 @@ class SocketConnector extends Connector {
             initSocket(host, port);
             greetServer();
         } catch (Exception e) {
+            logger.warning("SocketConnector failed to connect to Rocket.");
             close();
             throw e;
         }

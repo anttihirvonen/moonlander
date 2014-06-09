@@ -26,6 +26,7 @@ abstract class Connector implements TrackContainerListener, ControllerListener {
      * Removes event listeners.
      */
     public void close() {
+        logger.finer("Closing...");
         this.tracks.removeEventListener(this);
         this.controller.removeEventListener(this);
     }

@@ -75,7 +75,7 @@ public class Moonlander {
     public Moonlander(PApplet parent, Controller controller) {
         // Start with logging off.
         // Can be enabled with changeLogLevel()
-        setupLogging(Level.SEVERE);
+        setupLogging(Level.INFO);
 
         tracks = new TrackContainer();
         this.parent = parent;
@@ -119,7 +119,6 @@ public class Moonlander {
      * @return true if connector was initialized, otherwise false.
      */
     public boolean start(String host, int port, String filePath) {
-        logger.info("Firing up Moonlander");
 
         // If connection to rocket fails, try to load syncdata from file
         try {
@@ -132,6 +131,8 @@ public class Moonlander {
                 return false;
             }
         }
+        
+        logger.info("Moonlander initialized successfully.");
 
         return true;
     }
