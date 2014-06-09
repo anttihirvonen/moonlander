@@ -8,7 +8,9 @@ If you don't know what GNU Rocket is, read about it [here](https://github.com/ku
 
 ### From release package
 
-Download the latest release from [this url](http://firebug.kapsi.fi/moonlander/Moonlander.zip). Extract the library into the libraries folder of your Processing sketchbook (..libraries/Moonlander). More info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library) (see section about manual install).
+Download the latest release from [this url](http://firebug.kapsi.fi/moonlander/Moonlander.zip). Extract the library into the libraries folder of your Processing sketchbook (..libraries/Moonlander) and restart Processing. The library should be then visible in menu (`Sketch -> Import library`) – it it's there, you're ready to try the example below!
+
+If you encounter any problems, see more info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library) (section about manual install).
 
 TBD: This library should be in Processing's database (which makes install process super easy)
 
@@ -16,7 +18,7 @@ TBD: This library should be in Processing's database (which makes install proces
 
 Edit variables `sketchbook.location` and `classpath.local.location` in `resources/build.properties`. By default, the build process only works on Mac – for other platforms, you must edit the mentioned variables for build to succeed (this is clumsy and should be replaced with better solution later on, but suffices for now).
 
-Build the library with `ant -f resources/build.xml` – the build process also automatically installs the library into Processing's library folder, so it will be immediately usable. Try the example below!
+Build the library with `ant -f resources/build.xml` – the build process also automatically installs the library into Processing's library folder, so it will be immediately usable after you restart Processing (must be only done after the first build). Then try the example below!
 
 
 ## Usage
@@ -33,7 +35,7 @@ If GNU Rocket is running at it's default address and port (localhost:1338), Moon
 
 Example:
 
-```
+```java
 import moonlander.library.*;
 
 // Minim must be imported when using Moonlander with soundtrack.
@@ -64,7 +66,7 @@ void draw() {
 
 ```
 
-If you want to run Moonlander without a music track, replace line `moonlander = Moonlander.initWithSoundTrack(this, "filename.mp3", 120, 4);` with `moonlander = new Moonlander(this, new TimeController(4));`, where the integer parameter to `TimeController` is rows per second.
+If you want to run Moonlander without a music track, replace line `moonlander = Moonlander.initWithSoundTrack(this, "filename.mp3", 120, 4);` with `moonlander = new Moonlander(this, new TimeController(4));`, where the integer parameter passed to `TimeController` means "rows per second".
 
 ## API
 
