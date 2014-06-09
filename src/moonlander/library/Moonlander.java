@@ -172,6 +172,13 @@ public class Moonlander {
     }
 
     /**
+     * Returns current (fractional) row.
+     */
+    public double getCurrentRow() {
+        return controller.getCurrentRow();
+    }
+
+    /**
      * Returns the version of the library.
      * 
      * @return String
