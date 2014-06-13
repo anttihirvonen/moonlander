@@ -226,7 +226,7 @@ ${line}
     <target name="generate.javadoc" if="is.normal">
         <!-- create the java reference of the library -->
         <javadoc bottom="Processing library ${project.name} by ${author.name}. ${library.copyright}" 
-            classpath="${classpath.local.location}/core.jar;{project.bin}" 
+            classpath="${classpath.local.location}/core/library/core.jar;${classpath.local.location}/modes/java/libraries/minim/library/minim.jar;{project.bin}" 
             destdir="${project.tmp}/${project.name}/reference" 
             verbose="false" 
             stylesheetfile="resources/stylesheet.css" 
@@ -236,6 +236,7 @@ ${line}
 
             <link href="${javadoc.java.href}" />
             <link href="${javadoc.processing.href}" />
+            <link href="${javadoc.minim.href}" />
             <taglet name="ExampleTaglet" path="resources/code" />
             <fileset dir="${project.tmp}/${project.name}/src" defaultexcludes="yes">
                 <!-- add packages to be added to reference. -->
