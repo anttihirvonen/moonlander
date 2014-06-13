@@ -45,7 +45,7 @@ void draw() {
     // You can also ask current time and row from Moonlander if you
     // want to do something custom in code based on time.
     textSize(24);
-    text("Time: " + moonlander.getCurrentTime(), 10, 30);
-    text("Row: " + moonlander.getCurrentRow(), 10, 60);
+    text("Time: " + String.format("%.2f", moonlander.getCurrentTime()), 10, 30);
+    text("Row: " + String.format("%.2f", moonlander.getCurrentRow()), 10, 60);
     text("Color values: (" + (int)bg_red + ", " + bg_green + ", " + bg_blue + ")", 10, 90);
 }
