@@ -83,35 +83,51 @@ Moonlander is mainly operated through it's main class, which is unsurprisignly c
 
 ### Moonlander
 
-```Moonlander.initWithSoundtrack(PApplet applet, String filename, int beatsPerMinute, int rowsPerBeat)```
+```java
+Moonlander initWithSoundtrack(PApplet applet, String filename, int beatsPerMinute, int rowsPerBeat)
+```
 
-Shortcut for initializing Moonlander with music playback. `filename` is the soundtrack filename (should be in sketch's folder or under `data/`), `beatsPerMinute` is bpm of the soundtrack and `rowsPerBeat` tells Rocket how many rows correspond to one beat (sync precision).
+Shortcut for initializing Moonlander with music playback. This effectively loads soundtrack from given file and constructs a new `MinimController` for it. `filename` is the soundtrack filename (should be in sketch's folder or under `data/`), `beatsPerMinute` is bpm of the soundtrack and `rowsPerBeat` tells Rocket how many rows correspond to one beat (sync precision).
 
-`Moonlander.changeLogLevel(Level logLevel)`
+```java
+void Moonlander.changeLogLevel(Level logLevel)
+```
 
 Change Moonalander´s logging level. All levels from `java.utils.logging.Level` are supported - `Level.FINEST` naturally outputs most data. All logging data is output into stderr (visible on Processing's console).
 
-`Moonlander.start(String host, int port, String filepath)`
+```java
+Moonlander.start(String host, int port, String filepath)
+```
 
-Starts Moonlander. Some version of `Moonlander.start` must be called before fetching values. Either connects to Rocket runnin at `host:port` or loads syncdata from `filepath` under sketch's path.
+Starts Moonlander. Some version of `Moonlander.start` must be called before fetching values. Either connects to Rocket running at `host:port` or loads syncdata from `filepath` under sketch's path. 
 
-`Moonlander.start()`
+```java
+Moonlander.start()
+```
 
-Shortcut for running `Moonlander.start("localhost", 1338, "syncdata.rocket")`.
+Shortcut for `Moonlander.start("localhost", 1338, "syncdata.rocket")`
 
-`Moonlander.getValue(String name)`
+```java
+Moonlander.getValue(String name)
+```
 
 Return `double` value of given track.
 
-`Moonlander.getIntValue(String name)`
+```java
+Moonlander.getIntValue(String name)
+```
 
 Shortcut for running `(int)Moonlander.getValue(...)`.
 
-`Moonlander.getCurrentTime()`
+```java
+Moonlander.getCurrentTime()
+```
 
 Returns current playback time in seconds.
 
-`Moonlander.getCurrentRow()`
+```java
+Moonlander.getCurrentRow()
+```
 
 Returns current (fractional) row.
 
