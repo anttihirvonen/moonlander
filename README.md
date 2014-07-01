@@ -13,7 +13,7 @@ If you don't know what GNU Rocket is, read about it [here](https://github.com/ku
 
 ### From release package
 
-Download the latest release from [this url](http://firebug.kapsi.fi/moonlander/Moonlander.zip). Extract the library into the libraries folder of your Processing sketchbook (<Your Processing folder>/libraries/Moonlander) and restart Processing. The library should be then visible in menu (**Sketch** > **Import library**) – it it's there, you're ready to try the example below!
+Download the latest release from [this url](http://firebug.kapsi.fi/moonlander/). Extract the library into the libraries folder of your Processing sketchbook (<Your Processing folder>/libraries/Moonlander) and restart Processing. The library should be then visible in menu (**Sketch** > **Import library**) – it it's there, you're ready to try the example below!
 
 If you encounter any problems, see more info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library#Manual_Install).
 
