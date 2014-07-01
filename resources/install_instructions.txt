@@ -1,15 +1,6 @@
 How to install library ##library.name##
 
-
-Install with the "Add Library..." tool
-
-New for Processing 2.0: Add contributed libraries by selecting "Add Library..." 
-from the "Import Library..." submenu within the Sketch menu. Not all available 
-libraries have been converted to show up in this menu. If a library isn't there,
-it will need to be installed manually by following the instructions below.
-
-
-Manual Install
+Manual Install (currently the only way)
 
 Contributed libraries may be downloaded separately and manually placed within 
 the "libraries" folder of your Processing sketchbook. To find (and change) the 
