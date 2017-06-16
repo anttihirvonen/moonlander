@@ -42,13 +42,24 @@ class SocketConnector extends Connector {
 
         logger.fine(String.format("Trying to connect to Rocket at %s:%d", host, port));
 
-        try {
-            initSocket(host, port);
-            greetServer();
-        } catch (Exception e) {
-            logger.warning("SocketConnector failed to connect to Rocket.");
-            close();
-            throw e;
+        int triesAmount = 10; // Define max amount of connection tries
+        for (int i = 0; i < triesAmount; i++) {
+            try {
+                initSocket(host, port);
+                greetServer();
+                break;
+            } catch (Exception e) {
+                if (i < triesAmount - 1) {
+                    logger.warning("SocketConnector failed to connect to Rocket. Trying again.");
+                    // Close socket if it has been opened already
+                    if (socket != null)
+                        socket.close();
+                } else {
+                    logger.warning("SocketConnector failed to connect to Rocket the last time.");
+                    close();
+                    throw e;
+                }
+            }
         }
 
         logger.info(String.format("Successfully connected to Rocket running at %s:%d.", host, port));
@@ -88,8 +99,8 @@ class SocketConnector extends Connector {
         try {
             in.readFully(greet, 0, SERVER_GREET.length());
         } catch (Exception e) {
-            logger.severe("Couldn't read greetings from server.");
-            throw new Exception("Reading greetings failed");
+            logger.severe("Couldn't read greetings from server. " + e);
+            throw new Exception("Reading greetings failed", e);
         }
 
         logger.finer("Greetings read successfully.");
