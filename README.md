@@ -2,7 +2,7 @@
 double time_varying_parameter = moonlander.getValue("my_parameter");
 ```
 
-Moonlander is a library for integrating Processing with GNU Rocket. which allows you to take full control of any time-varying parameters in your sketches.
+Moonlander is a library for integrating Processing with GNU Rocket, which allows you to easily control time-based variables in your sketches.
 
 If you don't know what GNU Rocket is, read about it [here](https://github.com/kusma/rocket). In short, GNU Rocket is a sync-tracker, a tool mainly used for synchronizing music and visuals in demoscene productions. It can be used to control basically anything that can be presented by a floating point value and varies with time; cameras, colors, coordinates, you name it. Rocket with Moonlander doesn't necessarily require a music track, so it can be utilized as a general control tool for any parameters that change over time (e.g. data visualizations, animations, whatever you can imagine...).
 
@@ -137,3 +137,7 @@ Want to contribute? As usual, submit a patch by opening a pull request.
 Before sending your patch away, please make sure that old tests pass and write tests for new code if necessary. This project uses JUnit for automated testing because testing Processing libraries by hand is very painful. Run tests with `ant tests.run` which builds the library and runs all the tests. 
 
 Note that the amount of unit tests should be kept at minimum and parts that would require way too much mocking (like socket connections) should not be unit tested. Use unit tests only for those parts of code that are running "behind the scenes" and thus hard to test and debug in Processing (e.g. not easily testable by poking the public API).
+
+## Similar libraries
+
+* [pyrocket](https://github.com/Contraz/pyrocket) for Python
