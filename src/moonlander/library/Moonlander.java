@@ -148,8 +148,11 @@ public class Moonlander {
         return start("localhost", 1338, "syncdata.rocket");
     }
 
-    // temporary update method, call in sketc#draw
-    // TODO: extend from PApplet and hard-wire updating
+    /**
+     * Handle communication and controller updates.
+     *
+     * This method must be called for every frame.
+     */
     public void update() {
         if (controller != null && connector != null) {
             // Update controller values (may fire events)
@@ -164,10 +167,22 @@ public class Moonlander {
         return tracks.getOrCreate(name);
     }
 
+    /**
+     * Returns value of a track.
+     *
+     * @param name track's name
+     */
     public double getValue(String name) {
         return getTrack(name).getValue(controller.getCurrentRow());
     }
 
+    /**
+     * Returns int value of a track.
+     *
+     * Practically same as (int)Moonlander.getValue(...) -
+     * just makes your code nicer to look at as no 
+     * casts required!
+     */
     public int getIntValue(String name) {
         return (int)getValue(name);
     }
