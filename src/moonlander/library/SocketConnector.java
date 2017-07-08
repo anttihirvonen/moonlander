@@ -49,11 +49,10 @@ class SocketConnector extends Connector {
                 greetServer();
                 break;
             } catch (Exception e) {
-                if (i < triesAmount - 1) {
+                if (i < triesAmount - 1 && socket != null) {
                     logger.warning("SocketConnector failed to connect to Rocket. Trying again.");
                     // Close socket if it has been opened already
-                    if (socket != null)
-                        socket.close();
+                    socket.close();
                 } else {
                     logger.warning("SocketConnector failed to connect to Rocket the last time.");
                     close();
