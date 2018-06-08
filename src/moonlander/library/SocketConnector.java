@@ -142,7 +142,7 @@ class SocketConnector extends Connector {
         logger.finest("Communicating row="+row+" change to rocket");
 
         try {
-            out.writeInt(Commands.SET_ROW);
+            out.writeByte(Commands.SET_ROW);
             out.writeInt(row);
         } catch (Exception e) {
             logger.severe("Communication with Rocket failed!");
