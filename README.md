@@ -11,16 +11,17 @@ If you don't know what GNU Rocket is, read about it [here](https://github.com/ku
 
 ### From release package
 
-Download the latest release from [this url](https://github.com/anttihirvonen/moonlander/releases/download/v1.0/moonlander-1.0.zip) or fetch a version of your choice from [releases page](https://github.com/anttihirvonen/moonlander/releases). Extract the library into the libraries folder of your Processing sketchbook (`<Your Processing folder>/libraries/Moonlander`) and restart Processing. The library should be then visible in menu (**Sketch** > **Import library**) – if it's there, you're ready to try the example below!
+Download the latest release from [the releases page](https://github.com/anttihirvonen/moonlander/releases/). Extract the library into the libraries folder of your Processing sketchbook (`<Your Processing folder>/libraries/Moonlander`) and restart Processing. The library should be then visible in menu (**Sketch** > **Import library**) – if it's there, you're ready to try the example below!
 
 If you encounter any problems, see more info at [Processing Wiki](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library#Manual_Install).
 
 ### From sources (Git repository)
 
+First of all, you need Processing, JDK and Ant installed.
+
 Edit variables `sketchbook.location` and `classpath.local.location` in `resources/build.properties`. By default, the build process only works on Macs – for other platforms you must edit the mentioned variables for build to succeed (this is clumsy and should be replaced with better solution later on, but suffices for now).
 
-Build the library with `ant -f resources/build.xml` – the build process also automatically installs the library into Processing's library folder, so it will be immediately usable after you restart Processing (this must be only done after the first build). You are then ready to try the example below! (or, since you probably cloned this repository, fix a bug you found or implement a feature and send me a pull request :)
-
+Build the library with `ant -f resources/build.xml` – the build process also automatically installs the library into Processing's library folder, so it will be immediately usable after you restart Processing (this must be only done after the first build). You are then ready to try the example below!
 
 ## Usage
 
@@ -128,7 +129,6 @@ Moonlander.getCurrentRow()
 ```
 
 Returns current (fractional) row.
-
 
 ## For developers
 
