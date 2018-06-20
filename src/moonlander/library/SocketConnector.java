@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.net.Socket;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.util.logging.Logger;
 import java.io.IOException;
 
@@ -74,8 +76,8 @@ class SocketConnector extends Connector {
             logger.warning(String.format("Connection to %s:%d failed.", host, port));
             throw e;
         }
-        out = new DataOutputStream(socket.getOutputStream());
-        in = new DataInputStream(socket.getInputStream());
+        out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
         logger.finer("Connection to Rocket established.");
     }
@@ -90,6 +92,7 @@ class SocketConnector extends Connector {
         
         // Write our greetings
         out.writeBytes(CLIENT_GREET);
+        out.flush();
 
         logger.finer("Greetings sent. Now reading greetings from Rocket...");
 
@@ -127,6 +130,7 @@ class SocketConnector extends Connector {
             out.writeByte(Commands.GET_TRACK);
             out.writeInt(name.length());
             out.writeBytes(name);
+            out.flush();
         } catch (Exception e) {
             logger.severe("Communication with Rocket failed!");
         }
@@ -144,6 +148,7 @@ class SocketConnector extends Connector {
         try {
             out.writeByte(Commands.SET_ROW);
             out.writeInt(row);
+            out.flush();
         } catch (Exception e) {
             logger.severe("Communication with Rocket failed!");
         }
