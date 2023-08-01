@@ -92,7 +92,7 @@ Shortcut for initializing Moonlander with music playback. This effectively loads
 void Moonlander.changeLogLevel(Level logLevel)
 ```
 
-Change Moonalander´s logging level. All levels from `java.utils.logging.Level` are supported - `Level.FINEST` naturally outputs most data. All logging data is output into stderr (visible on Processing's console).
+Change Moonlander´s logging level. All levels from `java.util.logging.Level` are supported - `Level.FINEST` naturally outputs most data. All logging data is output into stderr (visible on Processing's console).
 
 ```java
 Moonlander.start(String host, int port, String filepath)
